@@ -14,9 +14,12 @@ import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
+import frc.robot.commands.AutonomousDefault;
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.MecanumControllerCommand;
@@ -36,6 +39,9 @@ public class RobotContainer {
 
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
+
+  // Create SmartDashboard chooser for autonomous routines
+  private final SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -68,6 +74,11 @@ public class RobotContainer {
     new JoystickButton(m_driverController, Button.kRightBumper.value)
         .whenPressed(() -> m_robotDrive.setMaxOutput(0.5))
         .whenReleased(() -> m_robotDrive.setMaxOutput(1));
+
+    // Setup SmartDashboard options
+    m_chooser.setDefaultOption("Basic Auto", new AutonomousDefault(m_robotDrive));
+    m_chooser.addOption("Auto Path Follow", getMecanumControllerCommand(getExampleTrajectory()));
+    SmartDashboard.putData(m_chooser);
   }
 
   /**
@@ -76,6 +87,25 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
+    return m_chooser.getSelected();    
+  }
+
+  public Trajectory getExampleTrajectory() {
+    // An example trajectory to follow.  All units in meters.
+    Trajectory exampleTrajectory =
+    TrajectoryGenerator.generateTrajectory(
+        // Start at the origin facing the +X direction
+        new Pose2d(0, 0, new Rotation2d(0)),
+        // Pass through these two interior waypoints, making an 's' curve path
+        List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
+        // End 3 meters straight ahead of where we started, facing forward
+        new Pose2d(3, 0, new Rotation2d(0)),
+        getTrajectoryConfig());
+
+    return exampleTrajectory;
+  }
+
+  public TrajectoryConfig getTrajectoryConfig() {
     // Create config for trajectory
     TrajectoryConfig config =
         new TrajectoryConfig(
@@ -84,20 +114,14 @@ public class RobotContainer {
             // Add kinematics to ensure max speed is actually obeyed
             .setKinematics(DriveConstants.kDriveKinematics);
 
-    // An example trajectory to follow.  All units in meters.
-    Trajectory exampleTrajectory =
-        TrajectoryGenerator.generateTrajectory(
-            // Start at the origin facing the +X direction
-            new Pose2d(0, 0, new Rotation2d(0)),
-            // Pass through these two interior waypoints, making an 's' curve path
-            List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
-            // End 3 meters straight ahead of where we started, facing forward
-            new Pose2d(3, 0, new Rotation2d(0)),
-            config);
+    return config;
+  }
+
+  public Command getMecanumControllerCommand(Trajectory trajectory) {
 
     MecanumControllerCommand mecanumControllerCommand =
         new MecanumControllerCommand(
-            exampleTrajectory,
+            trajectory,
             m_robotDrive::getPose,
             DriveConstants.kFeedforward,
             DriveConstants.kDriveKinematics,
@@ -121,7 +145,8 @@ public class RobotContainer {
             m_robotDrive);
 
     // Reset odometry to the starting pose of the trajectory.
-    m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose());
+    m_robotDrive.resetOdometry(trajectory.getInitialPose());
+
 
     // Run path following command, then stop at the end.
     return mecanumControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false));
