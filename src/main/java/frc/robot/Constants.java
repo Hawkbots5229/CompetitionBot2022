@@ -46,9 +46,10 @@ public final class Constants {
             new Translation2d(-kWheelBase / 2, kTrackWidth / 2),
             new Translation2d(-kWheelBase / 2, -kTrackWidth / 2));
 
-    public static final int kEncoderCPR = 1024;
+    //public static final int kEncoderCPR = 1024;
     public static final double kWheelDiameterMeters = 0.15;
-    public static final double kEncoderDistancePerRev = (kWheelDiameterMeters * Math.PI);
+    public static final double kDrivetrainGearRatio = 14;
+    public static final double kEncoderDistancePerRev = (kWheelDiameterMeters * Math.PI * kDrivetrainGearRatio);
 
     // These are example values only - DO NOT USE THESE FOR YOUR OWN ROBOT!
     // These characterization values MUST be determined either experimentally or theoretically
