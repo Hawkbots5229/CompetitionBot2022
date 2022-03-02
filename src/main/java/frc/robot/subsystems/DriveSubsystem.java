@@ -10,7 +10,10 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.MecanumDriveMotorVoltages;
 import edu.wpi.first.math.kinematics.MecanumDriveOdometry;
 import edu.wpi.first.math.kinematics.MecanumDriveWheelSpeeds;
@@ -23,10 +26,14 @@ import frc.robot.Constants.DriveConstants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveSubsystem extends SubsystemBase {
-  private final CANSparkMax m_frontLeft = new CANSparkMax(DriveConstants.kFrontLeftMotorPort, MotorType.kBrushless);
-  private final CANSparkMax m_rearLeft = new CANSparkMax(DriveConstants.kRearLeftMotorPort, MotorType.kBrushless);
-  private final CANSparkMax m_frontRight = new CANSparkMax(DriveConstants.kFrontRightMotorPort, MotorType.kBrushless);
-  private final CANSparkMax m_rearRight = new CANSparkMax(DriveConstants.kRearRightMotorPort, MotorType.kBrushless);
+  private final CANSparkMax m_frontLeft = 
+      new CANSparkMax(DriveConstants.kFrontLeftMotorPort, MotorType.kBrushless);
+  private final CANSparkMax m_rearLeft = 
+      new CANSparkMax(DriveConstants.kRearLeftMotorPort, MotorType.kBrushless);
+  private final CANSparkMax m_frontRight = 
+      new CANSparkMax(DriveConstants.kFrontRightMotorPort, MotorType.kBrushless);
+  private final CANSparkMax m_rearRight = 
+      new CANSparkMax(DriveConstants.kRearRightMotorPort, MotorType.kBrushless);
 
   private final MecanumDrive m_drive =
       new MecanumDrive(m_frontLeft, m_rearLeft, m_frontRight, m_rearRight);
@@ -44,11 +51,31 @@ public class DriveSubsystem extends SubsystemBase {
   private final RelativeEncoder m_rearRightEncoder = m_rearRight.getEncoder();
 
   // The gyro sensor
-  private final AHRS m_gyro = new AHRS(SPI.Port.kMXP);
+  private final AHRS m_gyro = 
+      new AHRS(SPI.Port.kMXP);
 
   // Odometry class for tracking robot pose
-  MecanumDriveOdometry m_odometry =
+  private final MecanumDriveOdometry m_odometry = 
       new MecanumDriveOdometry(DriveConstants.kDriveKinematics, m_gyro.getRotation2d());
+
+  // Front left motor velocity PID controller
+  private final PIDController m_frontLeftVelPIDController = 
+      new PIDController(DriveConstants.kPFrontLeftVel, DriveConstants.kDFrontLeftVel, DriveConstants.kIFrontLeftVel);
+
+  // Rear left motor velocity PID controller
+  private final PIDController m_rearLeftVelPIDController = 
+      new PIDController(DriveConstants.kPRearLeftVel, DriveConstants.kDRearLeftVel, DriveConstants.kIRearLeftVel);
+
+  // Front right motor velocity PID controller
+  private final PIDController m_frontRightVelPIDController = 
+      new PIDController(DriveConstants.kPFrontRightVel, DriveConstants.kDFrontRightVel, DriveConstants.kIFrontRightVel);
+
+  // Rear right motor velocity PID controller
+  private final PIDController m_rearRightVelPIDController = 
+      new PIDController(DriveConstants.kPRearRightVel, DriveConstants.kDRearRightVel, DriveConstants.kIRearRightVel);
+
+  private final SimpleMotorFeedforward m_feedForward =
+        new SimpleMotorFeedforward(DriveConstants.kStaticGain, DriveConstants.kVelocityGain, DriveConstants.kAccelerationGain);
 
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
@@ -57,6 +84,7 @@ public class DriveSubsystem extends SubsystemBase {
     m_rearLeftEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerRev);
     m_frontRightEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerRev);
     m_rearRightEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerRev);
+
     // Converst RPM to meters per second
     m_frontLeftEncoder.setVelocityConversionFactor(DriveConstants.kEncoderDistancePerRev/60);
     m_rearLeftEncoder.setVelocityConversionFactor(DriveConstants.kEncoderDistancePerRev/60);
@@ -126,6 +154,55 @@ public class DriveSubsystem extends SubsystemBase {
     }
   }
 
+    /**
+   * Set the desired speeds for each wheel.
+   *
+   * @param speeds The desired wheel speeds.
+   */
+  public void setSpeeds(MecanumDriveWheelSpeeds speeds) {
+    final double frontLeftFeedforward = m_feedForward.calculate(speeds.frontLeftMetersPerSecond);
+    final double frontRightFeedforward = m_feedForward.calculate(speeds.frontRightMetersPerSecond);
+    final double backLeftFeedforward = m_feedForward.calculate(speeds.rearLeftMetersPerSecond);
+    final double backRightFeedforward = m_feedForward.calculate(speeds.rearRightMetersPerSecond);
+
+    final double frontLeftOutput =
+        m_frontLeftVelPIDController.calculate(
+            m_frontLeftEncoder.getVelocity(), speeds.frontLeftMetersPerSecond);
+    final double frontRightOutput =
+        m_frontRightVelPIDController.calculate(
+            m_frontRightEncoder.getVelocity(), speeds.frontRightMetersPerSecond);
+    final double backLeftOutput =
+        m_rearLeftVelPIDController.calculate(
+            m_rearLeftEncoder.getVelocity(), speeds.rearLeftMetersPerSecond);
+    final double backRightOutput =
+        m_rearRightVelPIDController.calculate(
+            m_rearRightEncoder.getVelocity(), speeds.rearRightMetersPerSecond);
+
+    m_frontLeft.setVoltage(frontLeftOutput + frontLeftFeedforward);
+    m_frontRight.setVoltage(frontRightOutput + frontRightFeedforward);
+    m_rearLeft.setVoltage(backLeftOutput + backLeftFeedforward);
+    m_rearRight.setVoltage(backRightOutput + backRightFeedforward);
+  }
+
+  /**
+   * Method to drive the robot using joystick info and PID control.
+   *
+   * @param xSpeed Speed of the robot in the x direction (forward).
+   * @param ySpeed Speed of the robot in the y direction (sideways).
+   * @param rot Angular rate of the robot.
+   * @param fieldRelative Whether the provided x and y speeds are relative to the field.
+   */
+  @SuppressWarnings("ParameterName")
+  public void drivePID(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
+    var mecanumDriveWheelSpeeds =
+        DriveConstants.kDriveKinematics.toWheelSpeeds(
+            fieldRelative
+                ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, m_gyro.getRotation2d())
+                : new ChassisSpeeds(xSpeed, ySpeed, rot));
+    mecanumDriveWheelSpeeds.desaturate(DriveConstants.kMaxSpeed);
+    setSpeeds(mecanumDriveWheelSpeeds);
+  }
+
   /** Sets the front left drive MotorController to a voltage. */
   public void setDriveMotorControllersVolts(MecanumDriveMotorVoltages volts) {
     m_frontLeft.setVoltage(volts.frontLeftVoltage);
@@ -176,6 +253,51 @@ public class DriveSubsystem extends SubsystemBase {
    */
   public RelativeEncoder getRearRightEncoder() {
     return m_rearRightEncoder;
+  }
+
+  /**
+   * Gets the front left motor velocity PID Controller.
+   *
+   * @return the front left motor velocity PID Controller
+   */
+  public PIDController getFrontLeftVelPIDController() {
+    return m_frontLeftVelPIDController;
+  }
+
+  /**
+   * Gets the rear left motor velocity PID Controller.
+   *
+   * @return the rear left motor velocity PID Controller
+   */
+  public PIDController getRearLeftVelPIDController() {
+    return m_rearLeftVelPIDController;
+  }
+
+  /**
+   * Gets the front right motor velocity PID Controller.
+   *
+   * @return the front right motor velocity PID Controller
+   */
+  public PIDController getFrontRightVelPIDController() {
+    return m_frontRightVelPIDController;
+  }
+
+  /**
+   * Gets the rear right motor velocity PID Controller.
+   *
+   * @return the rear right motor velocity PID Controller
+   */
+  public PIDController getRearRightVelPIDController() {
+    return m_rearRightVelPIDController;
+  }  
+
+    /**
+   * Gets simple feedforward object for drive motors.
+   *
+   * @return the simple feedforward object for drive motors.
+   */
+  public SimpleMotorFeedforward getFeedForward() {
+    return m_feedForward;
   }
 
   /**

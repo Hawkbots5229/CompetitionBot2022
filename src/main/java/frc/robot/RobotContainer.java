@@ -123,7 +123,7 @@ public class RobotContainer {
         new MecanumControllerCommand(
             trajectory,
             m_robotDrive::getPose,
-            DriveConstants.kFeedforward,
+            m_robotDrive.getFeedForward(),
             DriveConstants.kDriveKinematics,
 
             // Position contollers
@@ -136,10 +136,11 @@ public class RobotContainer {
             AutoConstants.kMaxSpeedMetersPerSecond,
 
             // Velocity PID's
-            new PIDController(DriveConstants.kPFrontLeftVel, 0, 0),
-            new PIDController(DriveConstants.kPRearLeftVel, 0, 0),
-            new PIDController(DriveConstants.kPFrontRightVel, 0, 0),
-            new PIDController(DriveConstants.kPRearRightVel, 0, 0),
+            m_robotDrive.getFrontLeftVelPIDController(),
+            m_robotDrive.getRearLeftVelPIDController(),
+            m_robotDrive.getFrontRightVelPIDController(),
+            m_robotDrive.getFrontLeftVelPIDController(),
+            
             m_robotDrive::getCurrentWheelSpeeds,
             m_robotDrive::setDriveMotorControllersVolts, // Consumer for the output motor voltages
             m_robotDrive);

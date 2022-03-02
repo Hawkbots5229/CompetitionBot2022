@@ -46,23 +46,36 @@ public final class Constants {
             new Translation2d(-kWheelBase / 2, kTrackWidth / 2),
             new Translation2d(-kWheelBase / 2, -kTrackWidth / 2));
 
-    //public static final int kEncoderCPR = 1024;
+    public static final double kMaxSpeed = 200;
     public static final double kWheelDiameterMeters = 0.15;
     public static final double kDrivetrainGearRatio = 14;
     public static final double kEncoderDistancePerRev = (kWheelDiameterMeters * Math.PI * kDrivetrainGearRatio);
 
-    // These are example values only - DO NOT USE THESE FOR YOUR OWN ROBOT!
+    // These are example values only for simple feedforward - DO NOT USE THESE FOR YOUR OWN ROBOT!
     // These characterization values MUST be determined either experimentally or theoretically
     // for *your* robot's drive.
     // The SysId tool provides a convenient method for obtaining these values for your robot.
-    public static final SimpleMotorFeedforward kFeedforward =
-        new SimpleMotorFeedforward(1, 0.8, 0.15);
+    public static final double kStaticGain = 1;
+    public static final double kVelocityGain = 0.8;
+    public static final double kAccelerationGain = 0.15;
+    
 
     // Example value only - as above, this must be tuned for your drive!
     public static final double kPFrontLeftVel = 0.5;
+    public static final double kDFrontLeftVel = 0;
+    public static final double kIFrontLeftVel = 0;
+
     public static final double kPRearLeftVel = 0.5;
+    public static final double kDRearLeftVel = 0;
+    public static final double kIRearLeftVel = 0;
+
     public static final double kPFrontRightVel = 0.5;
+    public static final double kDFrontRightVel = 0;
+    public static final double kIFrontRightVel = 0;
+
     public static final double kPRearRightVel = 0.5;
+    public static final double kDRearRightVel = 0;
+    public static final double kIRearRightVel = 0;
   }
 
   public static final class OIConstants {
