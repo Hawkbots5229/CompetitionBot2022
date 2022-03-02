@@ -4,7 +4,7 @@
 
 package frc.robot;
 
-import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+//import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -46,7 +46,7 @@ public final class Constants {
             new Translation2d(-kWheelBase / 2, kTrackWidth / 2),
             new Translation2d(-kWheelBase / 2, -kTrackWidth / 2));
 
-    public static final double kMaxSpeed = 200;
+    public static final double kMaxSpeedMetersPerSecond = 10; 
     public static final double kWheelDiameterMeters = 0.15;
     public static final double kDrivetrainGearRatio = 14;
     public static final double kEncoderDistancePerRev = (kWheelDiameterMeters * Math.PI * kDrivetrainGearRatio);
