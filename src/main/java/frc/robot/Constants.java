@@ -47,6 +47,7 @@ public final class Constants {
             new Translation2d(-kWheelBase / 2, -kTrackWidth / 2));
 
     public static final double kMaxSpeedMetersPerSecond = 10; 
+    public static final double kMaxAngularSpeedRadiansPerSecond = 2 * Math.PI;
     public static final double kWheelDiameterMeters = 0.15;
     public static final double kDrivetrainGearRatio = 14;
     public static final double kEncoderDistancePerRev = (kWheelDiameterMeters * Math.PI * kDrivetrainGearRatio);
