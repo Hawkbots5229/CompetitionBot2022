@@ -185,7 +185,7 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   /**
-   * Method to drive the robot using joystick info and PID control.
+   * Method to drive the robot using joystick info and PID control. Speeds range from [-1, 1].
    *
    * @param xSpeed Speed of the robot in the x direction (forward).
    * @param ySpeed Speed of the robot in the y direction (sideways).
@@ -194,11 +194,15 @@ public class DriveSubsystem extends SubsystemBase {
    */
   @SuppressWarnings("ParameterName")
   public void drivePID(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
+    double xSpeedMeterPerSec = xSpeed * DriveConstants.kMaxSpeedMetersPerSecond;
+    double ySpeedMeterPerSec = ySpeed * DriveConstants.kMaxSpeedMetersPerSecond;
+    double rotRadiansPerSec = rot * DriveConstants.kMaxAngularSpeedRadiansPerSecond;
+
     var mecanumDriveWheelSpeeds =
         DriveConstants.kDriveKinematics.toWheelSpeeds(
             fieldRelative
-                ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, m_gyro.getRotation2d())
-                : new ChassisSpeeds(xSpeed, ySpeed, rot));
+                ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeedMeterPerSec, ySpeedMeterPerSec, rotRadiansPerSec, m_gyro.getRotation2d())
+                : new ChassisSpeeds(xSpeedMeterPerSec, ySpeedMeterPerSec, rotRadiansPerSec));
     mecanumDriveWheelSpeeds.desaturate(DriveConstants.kMaxSpeedMetersPerSecond);
     setSpeeds(mecanumDriveWheelSpeeds);
   }
