@@ -77,7 +77,6 @@ public class RobotContainer {
 
     // Setup SmartDashboard options
     m_chooser.setDefaultOption("Basic Auto", new AutonomousDefault(m_robotDrive));
-    m_chooser.addOption("Auto Path Follow", getMecanumControllerCommand(getExampleTrajectory()));
     SmartDashboard.putData(m_chooser);
   }
 
@@ -88,68 +87,5 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     return m_chooser.getSelected();    
-  }
-
-  public Trajectory getExampleTrajectory() {
-    // An example trajectory to follow.  All units in meters.
-    Trajectory exampleTrajectory =
-    TrajectoryGenerator.generateTrajectory(
-        // Start at the origin facing the +X direction
-        new Pose2d(0, 0, new Rotation2d(0)),
-        // Pass through these two interior waypoints, making an 's' curve path
-        List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
-        // End 3 meters straight ahead of where we started, facing forward
-        new Pose2d(3, 0, new Rotation2d(0)),
-        getTrajectoryConfig());
-
-    return exampleTrajectory;
-  }
-
-  public TrajectoryConfig getTrajectoryConfig() {
-    // Create config for trajectory
-    TrajectoryConfig config =
-        new TrajectoryConfig(
-                AutoConstants.kMaxSpeedMetersPerSecond,
-                AutoConstants.kMaxAccelerationMetersPerSecondSquared)
-            // Add kinematics to ensure max speed is actually obeyed
-            .setKinematics(DriveConstants.kDriveKinematics);
-
-    return config;
-  }
-
-  public Command getMecanumControllerCommand(Trajectory trajectory) {
-
-    MecanumControllerCommand mecanumControllerCommand =
-        new MecanumControllerCommand(
-            trajectory,
-            m_robotDrive::getPose,
-            m_robotDrive.getFeedForward(),
-            DriveConstants.kDriveKinematics,
-
-            // Position contollers
-            new PIDController(AutoConstants.kPXController, 0, 0),
-            new PIDController(AutoConstants.kPYController, 0, 0),
-            new ProfiledPIDController(
-                AutoConstants.kPThetaController, 0, 0, AutoConstants.kThetaControllerConstraints),
-
-            // Needed for normalizing wheel speeds
-            AutoConstants.kMaxSpeedMetersPerSecond,
-
-            // Velocity PID's
-            m_robotDrive.getFrontLeftVelPIDController(),
-            m_robotDrive.getRearLeftVelPIDController(),
-            m_robotDrive.getFrontRightVelPIDController(),
-            m_robotDrive.getFrontLeftVelPIDController(),
-            
-            m_robotDrive::getCurrentWheelSpeeds,
-            m_robotDrive::setDriveMotorControllersVolts, // Consumer for the output motor voltages
-            m_robotDrive);
-
-    // Reset odometry to the starting pose of the trajectory.
-    m_robotDrive.resetOdometry(trajectory.getInitialPose());
-
-
-    // Run path following command, then stop at the end.
-    return mecanumControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false));
   }
 }
