@@ -11,7 +11,6 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -36,8 +35,7 @@ public class DriveSubsystem extends SubsystemBase {
   private final CANSparkMax m_rearRight = 
       new CANSparkMax(DriveConstants.kRearRightMotorPort, MotorType.kBrushless);
 
-  private final MecanumDrive m_drive =
-      new MecanumDrive(m_frontLeft, m_rearLeft, m_frontRight, m_rearRight);
+  private final MecanumDrive m_drive;
 
   // The front-left-side drive encoder
   private final RelativeEncoder m_frontLeftEncoder = m_frontLeft.getEncoder();
@@ -80,6 +78,8 @@ public class DriveSubsystem extends SubsystemBase {
     initMotors();
     initEncoders();
     initVelPIDControlers();
+
+    m_drive = new MecanumDrive(m_frontLeft, m_rearLeft, m_frontRight, m_rearRight);
   }
 
   @Override
@@ -95,6 +95,12 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   private void initMotors() {
+
+    m_frontLeft.restoreFactoryDefaults();
+    m_rearLeft.restoreFactoryDefaults();
+    m_frontRight.restoreFactoryDefaults();
+    m_rearRight.restoreFactoryDefaults();
+    
     // We need to invert one side of the drivetrain so that positive voltages
     // result in both sides moving forward. Depending on how your robot's
     // gearbox is constructed, you might have to invert the left side instead.
@@ -123,10 +129,10 @@ public class DriveSubsystem extends SubsystemBase {
     m_rearRightEncoder.setVelocityConversionFactor(DriveConstants.kEncoderRpmToMetersPerSecond);  
 
     // Set the phase of the MotorFeedbackSensor so that it is set to be in phase with the motor itself.
-    m_frontLeftEncoder.setInverted(DriveConstants.kFrontLeftEncoderReversed);
-    m_rearLeftEncoder.setInverted(DriveConstants.kRearLeftEncoderReversed);
-    m_frontRightEncoder.setInverted(DriveConstants.kFrontRightEncoderReversed);
-    m_rearRightEncoder.setInverted(DriveConstants.kRearRightEncoderReversed);
+    //m_frontLeftEncoder.setInverted(DriveConstants.kFrontLeftEncoderReversed);
+    //m_rearLeftEncoder.setInverted(DriveConstants.kRearLeftEncoderReversed);
+    //m_frontRightEncoder.setInverted(DriveConstants.kFrontRightEncoderReversed);
+    //m_rearRightEncoder.setInverted(DriveConstants.kRearRightEncoderReversed);
   }
 
   private void initVelPIDControlers() {   
@@ -162,11 +168,17 @@ public class DriveSubsystem extends SubsystemBase {
    */
   @SuppressWarnings("ParameterName")
   public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
+   
+    System.out.println("ySpeed: " +  ySpeed);
+    System.out.println("xSpeed: " +  xSpeed);
+    System.out.println("rot: " + rot);
+
     if (fieldRelative) {
       m_drive.driveCartesian(ySpeed, xSpeed, rot, -m_gyro.getAngle());
     } else {
       m_drive.driveCartesian(ySpeed, xSpeed, rot);
     }
+
   }
 
   /**
@@ -242,7 +254,7 @@ public class DriveSubsystem extends SubsystemBase {
   public void resetEncoders() {
     m_frontLeftEncoder.setPosition(0);
     m_rearLeftEncoder.setPosition(0);
-    m_frontRightEncoder.setPosition(0);;
+    m_frontRightEncoder.setPosition(0);
     m_rearRightEncoder.setPosition(0);
   }
 

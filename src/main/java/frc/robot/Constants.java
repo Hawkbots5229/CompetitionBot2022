@@ -19,15 +19,15 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
  */
 public final class Constants {
   public static final class DriveConstants {
-    public static final int kFrontLeftMotorPort = 0;
-    public static final int kRearLeftMotorPort = 1;
-    public static final int kFrontRightMotorPort = 2;
-    public static final int kRearRightMotorPort = 3;
+    public static final int kFrontLeftMotorPort = 7;
+    public static final int kRearLeftMotorPort = 6;
+    public static final int kFrontRightMotorPort = 5;
+    public static final int kRearRightMotorPort = 1;
 
     public static final boolean kFrontLeftMotorReversed = false;
-    public static final boolean kRearLeftMotorReversed = true;
-    public static final boolean kFrontRightMotorReversed = false;
-    public static final boolean kRearRightMotorReversed = true;
+    public static final boolean kRearLeftMotorReversed = false;
+    public static final boolean kFrontRightMotorReversed = false; //true
+    public static final boolean kRearRightMotorReversed = false; //true
 
     public static final boolean kFrontLeftEncoderReversed = false;
     public static final boolean kRearLeftEncoderReversed = true;
@@ -46,12 +46,12 @@ public final class Constants {
             new Translation2d(-kWheelBase / 2, kTrackWidth / 2),
             new Translation2d(-kWheelBase / 2, -kTrackWidth / 2));
 
-    public static final double kOpenLoopRampRate = 2.0; // Time in seconds to go from 0 to full throttle.
+    public static final double kOpenLoopRampRate = 0.7; // Time in seconds to go from 0 to full throttle.
     public static final double kMaxSpeedMetersPerSecond = 10; 
     public static final double kMaxAngularSpeedRadiansPerSecond = 2 * Math.PI;
-    public static final double kWheelDiameterMeters = 0.15;
-    public static final double kDrivetrainGearRatio = 14;
-    public static final double kEncoderRevToMeters = (kWheelDiameterMeters * Math.PI * kDrivetrainGearRatio);
+    public static final double kWheelDiameterMeters = 0.2032;
+    public static final double kDrivetrainGearRatio = 14.1;
+    public static final double kEncoderRevToMeters = (kWheelDiameterMeters * Math.PI / kDrivetrainGearRatio);
     public static final double kEncoderRpmToMetersPerSecond = kEncoderRevToMeters / 60;
 
     // These are example values only for simple feedforward - DO NOT USE THESE FOR YOUR OWN ROBOT!
