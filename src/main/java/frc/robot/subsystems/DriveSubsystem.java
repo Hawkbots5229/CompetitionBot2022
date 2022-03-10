@@ -163,17 +163,13 @@ public class DriveSubsystem extends SubsystemBase {
    * Drives the robot at given x, y and theta speeds. Speeds range from [-1, 1] and the linear
    * speeds have no effect on the angular speed.
    *
-   * @param ySpeed Speed of the robot in the y direction (sideways).
-   * @param xSpeed Speed of the robot in the x direction (forward/backwards). 
+   * @param ySpeed Speed of the robot in the y direction (forward/backwards).
+   * @param xSpeed Speed of the robot in the x direction (sideways). 
    * @param rot Angular rate of the robot.
    * @param fieldRelative Whether the provided x and y speeds are relative to the field.
    */
   @SuppressWarnings("ParameterName")
   public void drive(double ySpeed, double xSpeed, double rot, boolean fieldRelative) {
-   
-    System.out.println("ySpeed: " +  ySpeed);
-    System.out.println("xSpeed: " +  xSpeed);
-    System.out.println("rot: " + rot);
 
     if (fieldRelative) {
       m_drive.driveCartesian(ySpeed, xSpeed, rot, -m_gyro.getAngle());
@@ -186,13 +182,13 @@ public class DriveSubsystem extends SubsystemBase {
   /**
    * Method to drive the robot using joystick info and PID control. Speeds range from [-1, 1].
    *
-   * @param xSpeed Speed of the robot in the x direction (forward).
-   * @param ySpeed Speed of the robot in the y direction (sideways).
+   * @param ySpeed Speed of the robot in the x direction (forward).
+   * @param xSpeed Speed of the robot in the y direction (sideways).
    * @param rot Angular rate of the robot.
    * @param fieldRelative Whether the provided x and y speeds are relative to the field.
    */
   @SuppressWarnings("ParameterName")
-  public void drivePID(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
+  public void drivePID(double ySpeed, double xSpeed, double rot, boolean fieldRelative) {
     double xSpeedMeterPerSec = xSpeed * DriveConstants.kMaxSpeedMetersPerSecond;
     double ySpeedMeterPerSec = ySpeed * DriveConstants.kMaxSpeedMetersPerSecond;
     double rotRadiansPerSec = rot * DriveConstants.kMaxAngularSpeedRadiansPerSecond;
