@@ -5,6 +5,8 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.SPI;
+
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -35,8 +37,6 @@ public class DriveSubsystem extends SubsystemBase {
   private final CANSparkMax m_rearRight = 
       new CANSparkMax(DriveConstants.kRearRightMotorPort, MotorType.kBrushless);
 
-  private final MecanumDrive m_drive;
-
   // The front-left-side drive encoder
   private final RelativeEncoder m_frontLeftEncoder = m_frontLeft.getEncoder();
 
@@ -48,14 +48,6 @@ public class DriveSubsystem extends SubsystemBase {
 
   // The rear-right-side drive encoder
   private final RelativeEncoder m_rearRightEncoder = m_rearRight.getEncoder();
-
-  // The gyro sensor
-  private final AHRS m_gyro = 
-      new AHRS(SPI.Port.kMXP);
-
-  // Odometry class for tracking robot pose
-  private final MecanumDriveOdometry m_odometry = 
-      new MecanumDriveOdometry(DriveConstants.kDriveKinematics, m_gyro.getRotation2d());
 
   // Front left motor velocity PID controller
   private final SparkMaxPIDController m_frontLeftVelPIDController = m_frontLeft.getPIDController();
@@ -69,16 +61,25 @@ public class DriveSubsystem extends SubsystemBase {
   // Rear right motor velocity PID controller
   private final SparkMaxPIDController m_rearRightVelPIDController = m_rearRight.getPIDController();
 
+  // The gyro sensor
+  private final AHRS m_gyro = 
+      new AHRS(SPI.Port.kMXP);
+
+  // Odometry class for tracking robot pose
+  private final MecanumDriveOdometry m_odometry = 
+      new MecanumDriveOdometry(DriveConstants.kDriveKinematics, m_gyro.getRotation2d());
+
   private final SimpleMotorFeedforward m_feedForward =
         new SimpleMotorFeedforward(DriveConstants.kStaticGain, DriveConstants.kVelocityGain, DriveConstants.kAccelerationGain);
+
+  private final MecanumDrive m_drive;   
 
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
 
     initMotors();
-    initEncoders();
-    initVelPIDControlers();
-
+    //initEncoders();
+    //initVelPIDControllers();
     m_drive = new MecanumDrive(m_frontLeft, m_rearLeft, m_frontRight, m_rearRight);
   }
 
@@ -95,24 +96,25 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   private void initMotors() {
-
+    
     m_frontLeft.restoreFactoryDefaults();
     m_rearLeft.restoreFactoryDefaults();
     m_frontRight.restoreFactoryDefaults();
     m_rearRight.restoreFactoryDefaults();
-    
+
     // We need to invert one side of the drivetrain so that positive voltages
     // result in both sides moving forward. Depending on how your robot's
     // gearbox is constructed, you might have to invert the left side instead.
+    
     m_frontLeft.setInverted(DriveConstants.kFrontLeftMotorReversed);
     m_rearLeft.setInverted(DriveConstants.kRearLeftMotorReversed);
     m_frontRight.setInverted(DriveConstants.kFrontRightMotorReversed);
     m_rearRight.setInverted(DriveConstants.kRearRightMotorReversed);
-
+    
     m_frontLeft.setOpenLoopRampRate(DriveConstants.kOpenLoopRampRate);
     m_rearLeft.setOpenLoopRampRate(DriveConstants.kOpenLoopRampRate);
     m_frontRight.setOpenLoopRampRate(DriveConstants.kOpenLoopRampRate);
-    m_rearRight.setOpenLoopRampRate(DriveConstants.kOpenLoopRampRate);
+    m_rearRight.setOpenLoopRampRate(DriveConstants.kOpenLoopRampRate); 
   }
 
   private void initEncoders() {
@@ -135,7 +137,7 @@ public class DriveSubsystem extends SubsystemBase {
     //m_rearRightEncoder.setInverted(DriveConstants.kRearRightEncoderReversed);
   }
 
-  private void initVelPIDControlers() {   
+  private void initVelPIDControllers() {   
     m_frontLeftVelPIDController.setFF(DriveConstants.kFFrontLeftVel, DriveConstants.kVelPidSlot); 
     m_frontLeftVelPIDController.setP(DriveConstants.kPFrontLeftVel, DriveConstants.kVelPidSlot);
     m_frontLeftVelPIDController.setD(DriveConstants.kDFrontLeftVel, DriveConstants.kVelPidSlot);
@@ -161,13 +163,13 @@ public class DriveSubsystem extends SubsystemBase {
    * Drives the robot at given x, y and theta speeds. Speeds range from [-1, 1] and the linear
    * speeds have no effect on the angular speed.
    *
-   * @param xSpeed Speed of the robot in the x direction (forward/backwards).
    * @param ySpeed Speed of the robot in the y direction (sideways).
+   * @param xSpeed Speed of the robot in the x direction (forward/backwards). 
    * @param rot Angular rate of the robot.
    * @param fieldRelative Whether the provided x and y speeds are relative to the field.
    */
   @SuppressWarnings("ParameterName")
-  public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
+  public void drive(double ySpeed, double xSpeed, double rot, boolean fieldRelative) {
    
     System.out.println("ySpeed: " +  ySpeed);
     System.out.println("xSpeed: " +  xSpeed);
