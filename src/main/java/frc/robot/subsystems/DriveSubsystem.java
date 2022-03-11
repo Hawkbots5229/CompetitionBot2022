@@ -6,7 +6,6 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.SPI;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -19,68 +18,60 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.MecanumDriveMotorVoltages;
 import edu.wpi.first.math.kinematics.MecanumDriveOdometry;
 import edu.wpi.first.math.kinematics.MecanumDriveWheelSpeeds;
-//import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-//import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.Constants.DriveConstants;
-//import edu.wpi.first.wpilibj.interfaces.Gyro;
-// import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveSubsystem extends SubsystemBase {
+  
+  // The front-left-side drive motor
   private final CANSparkMax m_frontLeft = 
       new CANSparkMax(DriveConstants.kFrontLeftMotorPort, MotorType.kBrushless);
+  // The rear-left-side drive motor
   private final CANSparkMax m_rearLeft = 
       new CANSparkMax(DriveConstants.kRearLeftMotorPort, MotorType.kBrushless);
+  // The front-right-side drive motor
   private final CANSparkMax m_frontRight = 
       new CANSparkMax(DriveConstants.kFrontRightMotorPort, MotorType.kBrushless);
+  // The rear-right-side drive motor
   private final CANSparkMax m_rearRight = 
       new CANSparkMax(DriveConstants.kRearRightMotorPort, MotorType.kBrushless);
 
   // The front-left-side drive encoder
   private final RelativeEncoder m_frontLeftEncoder = m_frontLeft.getEncoder();
-
   // The rear-left-side drive encoder
   private final RelativeEncoder m_rearLeftEncoder = m_rearLeft.getEncoder();
-
-  // The front-right--side drive encoder
+  // The front-right-side drive encoder
   private final RelativeEncoder m_frontRightEncoder = m_frontRight.getEncoder();
-
   // The rear-right-side drive encoder
   private final RelativeEncoder m_rearRightEncoder = m_rearRight.getEncoder();
 
   // Front left motor velocity PID controller
   private final SparkMaxPIDController m_frontLeftVelPIDController = m_frontLeft.getPIDController();
-
   // Rear left motor velocity PID controller
   private final SparkMaxPIDController m_rearLeftVelPIDController = m_rearLeft.getPIDController();
-
   // Front right motor velocity PID controller
   private final SparkMaxPIDController m_frontRightVelPIDController = m_frontRight.getPIDController();
-
   // Rear right motor velocity PID controller
   private final SparkMaxPIDController m_rearRightVelPIDController = m_rearRight.getPIDController();
 
-  // The gyro sensor
+  // Kauailabs navX-MXP motion processor
   private final AHRS m_gyro = 
       new AHRS(SPI.Port.kMXP);
 
-  // Odometry class for tracking robot pose
-  private final MecanumDriveOdometry m_odometry = 
-      new MecanumDriveOdometry(DriveConstants.kDriveKinematics, m_gyro.getRotation2d());
-
-  private final SimpleMotorFeedforward m_feedForward =
-        new SimpleMotorFeedforward(DriveConstants.kStaticGain, DriveConstants.kVelocityGain, DriveConstants.kAccelerationGain);
-
+  // Misc declarations
+  private final SimpleMotorFeedforward m_feedForward;
+  private final MecanumDriveOdometry m_odometry;
   private final MecanumDrive m_drive;   
 
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
 
     initMotors();
-    //initEncoders();
-    //initVelPIDControllers();
-    m_drive = new MecanumDrive(m_frontLeft, m_rearLeft, m_frontRight, m_rearRight);
+    initEncoders();
+    initVelControl();
+    initMecanumDrive();
+    
   }
 
   @Override
@@ -93,6 +84,14 @@ public class DriveSubsystem extends SubsystemBase {
             m_rearLeftEncoder.getVelocity(),
             m_frontRightEncoder.getVelocity(),
             m_rearRightEncoder.getVelocity()));
+  }
+  
+  private void initMecanumDrive() {
+    
+    m_drive = new MecanumDrive(m_frontLeft, m_rearLeft, m_frontRight, m_rearRight);
+    
+    // Odometry class for tracking robot pose
+    m_odometry = new MecanumDriveOdometry(DriveConstants.kDriveKinematics, m_gyro.getRotation2d());
   }
 
   private void initMotors() {
@@ -146,7 +145,9 @@ public class DriveSubsystem extends SubsystemBase {
     // Note: SparkMax relateive encoders are inverted with motors. No action needed here.
   }
 
-  private void initVelPIDControllers() {   
+  private void initVelControl() {   
+    m_feedForward = new SimpleMotorFeedforward(DriveConstants.kStaticGain, DriveConstants.kVelocityGain, DriveConstants.kAccelerationGain);
+    
     m_frontLeftVelPIDController.setFF(DriveConstants.kFFrontLeftVel, DriveConstants.kVelPidSlot); 
     m_frontLeftVelPIDController.setP(DriveConstants.kPFrontLeftVel, DriveConstants.kVelPidSlot);
     m_frontLeftVelPIDController.setD(DriveConstants.kDFrontLeftVel, DriveConstants.kVelPidSlot);
