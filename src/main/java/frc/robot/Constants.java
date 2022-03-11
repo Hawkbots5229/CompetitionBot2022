@@ -127,4 +127,10 @@ public final class Constants {
         new TrapezoidProfile.Constraints(
             kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
   }
+
+  public static final class ShooterConstants {
+    public static final double kLowShooterOutput = 0.5;
+    public static final double kHighShooterOutput = 1;
+    public static final int kShooterPort = 1;
+  }
 }
