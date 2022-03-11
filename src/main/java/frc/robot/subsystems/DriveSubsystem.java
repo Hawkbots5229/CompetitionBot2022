@@ -101,10 +101,11 @@ public class DriveSubsystem extends SubsystemBase {
     m_rearLeft.restoreFactoryDefaults();
     m_frontRight.restoreFactoryDefaults();
     m_rearRight.restoreFactoryDefaults();
-
-    // We need to invert one side of the drivetrain so that positive voltages
-    // result in both sides moving forward. Depending on how your robot's
-    // gearbox is constructed, you might have to invert the left side instead.
+    
+    m_frontLeft.setIdleMode(DriveConstants.kIdleMode);
+    m_rearLeft.setIdleMode(DriveConstants.kIdleMode);
+    m_frontRight.setIdleMode(DriveConstants.kIdleMode);
+    m_rearRight.setIdleMode(DriveConstants.kIdleMode);
     
     m_frontLeft.setInverted(DriveConstants.kFrontLeftMotorReversed);
     m_rearLeft.setInverted(DriveConstants.kRearLeftMotorReversed);
@@ -115,6 +116,16 @@ public class DriveSubsystem extends SubsystemBase {
     m_rearLeft.setOpenLoopRampRate(DriveConstants.kOpenLoopRampRate);
     m_frontRight.setOpenLoopRampRate(DriveConstants.kOpenLoopRampRate);
     m_rearRight.setOpenLoopRampRate(DriveConstants.kOpenLoopRampRate); 
+    
+    m_frontLeft.setClosedLoopRampRate(DriveConstants.kClosedLoopRampRate);
+    m_rearLeft.setClosedLoopRampRate(DriveConstants.kClosedLoopRampRate);
+    m_frontRight.setClosedLoopRampRate(DriveConstants.kClosedLoopRampRate);
+    m_rearRight.setClosedLoopRampRate(DriveConstants.kClosedLoopRampRate); 
+    
+    m_frontLeft.setSmartCurrentLimit(DriveConstants.kCurrentLimit);
+    m_rearLeft.setSmartCurrentLimit(DriveConstants.kCurrentLimit);
+    m_frontRight.setSmartCurrentLimit(DriveConstants.kCurrentLimit);
+    m_rearRight.setSmartCurrentLimit(DriveConstants.kCurrentLimit);
   }
 
   private void initEncoders() {
