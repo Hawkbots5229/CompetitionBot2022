@@ -140,12 +140,10 @@ public class DriveSubsystem extends SubsystemBase {
     m_rearLeftEncoder.setVelocityConversionFactor(DriveConstants.kEncoderRpmToMetersPerSecond);
     m_frontRightEncoder.setVelocityConversionFactor(DriveConstants.kEncoderRpmToMetersPerSecond);
     m_rearRightEncoder.setVelocityConversionFactor(DriveConstants.kEncoderRpmToMetersPerSecond);  
+    
+    resetEncoders();
 
-    // Set the phase of the MotorFeedbackSensor so that it is set to be in phase with the motor itself.
-    //m_frontLeftEncoder.setInverted(DriveConstants.kFrontLeftEncoderReversed);
-    //m_rearLeftEncoder.setInverted(DriveConstants.kRearLeftEncoderReversed);
-    //m_frontRightEncoder.setInverted(DriveConstants.kFrontRightEncoderReversed);
-    //m_rearRightEncoder.setInverted(DriveConstants.kRearRightEncoderReversed);
+    // Note: SparkMax relateive encoders are inverted with motors. No action needed here.
   }
 
   private void initVelPIDControllers() {   
