@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 //import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
@@ -26,13 +28,15 @@ public final class Constants {
 
     public static final boolean kFrontLeftMotorReversed = false;
     public static final boolean kRearLeftMotorReversed = false;
-    public static final boolean kFrontRightMotorReversed = false; //true
-    public static final boolean kRearRightMotorReversed = false; //true
+    public static final boolean kFrontRightMotorReversed = true; //true
+    public static final boolean kRearRightMotorReversed = true; //true
 
+    /*
     public static final boolean kFrontLeftEncoderReversed = false;
     public static final boolean kRearLeftEncoderReversed = true;
     public static final boolean kFrontRightEncoderReversed = false;
     public static final boolean kRearRightEncoderReversed = true;
+    */    
 
     public static final double kTrackWidth = 0.5;
     // Distance between centers of right and left wheels on robot
