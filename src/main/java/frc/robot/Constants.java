@@ -54,7 +54,7 @@ public final class Constants {
     public static final double kMaxSpeedMetersPerSecond = 10; 
     public static final double kMaxAngularSpeedRadiansPerSecond = 2 * Math.PI;
     public static final double kWheelDiameterMeters = 0.2032;
-    public static final double kDrivetrainGearRatio = 14.1;
+    public static final double kDrivetrainGearRatio = 10.71;
     public static final double kEncoderRevToMeters = (kWheelDiameterMeters * Math.PI / kDrivetrainGearRatio);
     public static final double kEncoderRpmToMetersPerSecond = kEncoderRevToMeters / 60;
 
@@ -130,5 +130,12 @@ public final class Constants {
     public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
         new TrapezoidProfile.Constraints(
             kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
+  }
+
+  public static final class ShooterConstants {
+    public static final double kLowShooterOutput = 0.5;
+    public static final double kHighShooterOutput = 1;
+    public static final int kShooterPort = 4;
+    public static final boolean kShooterMotorInverted = false;
   }
 }
