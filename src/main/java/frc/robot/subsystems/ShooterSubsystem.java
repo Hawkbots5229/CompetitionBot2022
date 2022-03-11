@@ -17,7 +17,7 @@ public class ShooterSubsystem extends SubsystemBase {
     new TalonSRX(ShooterConstants.kShooterPort);
 
   public ShooterSubsystem() {
-
+    m_shooterMotor.setInverted(ShooterConstants.kShooterMotorInverted);
   }
 
   public void setTargetOutput(double output) {
