@@ -70,8 +70,10 @@ public class DriveSubsystem extends SubsystemBase {
     initMotors();
     initEncoders();
     initVelControl();
-    initMecanumDrive();
-    
+
+    m_drive = new MecanumDrive(m_frontLeft, m_rearLeft, m_frontRight, m_rearRight);
+    m_odometry = new MecanumDriveOdometry(DriveConstants.kDriveKinematics, m_gyro.getRotation2d());
+    m_feedForward = new SimpleMotorFeedforward(DriveConstants.kStaticGain, DriveConstants.kVelocityGain, DriveConstants.kAccelerationGain);
   }
 
   @Override
@@ -84,14 +86,6 @@ public class DriveSubsystem extends SubsystemBase {
             m_rearLeftEncoder.getVelocity(),
             m_frontRightEncoder.getVelocity(),
             m_rearRightEncoder.getVelocity()));
-  }
-  
-  private void initMecanumDrive() {
-    
-    m_drive = new MecanumDrive(m_frontLeft, m_rearLeft, m_frontRight, m_rearRight);
-    
-    // Odometry class for tracking robot pose
-    m_odometry = new MecanumDriveOdometry(DriveConstants.kDriveKinematics, m_gyro.getRotation2d());
   }
 
   private void initMotors() {
@@ -146,7 +140,6 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   private void initVelControl() {   
-    m_feedForward = new SimpleMotorFeedforward(DriveConstants.kStaticGain, DriveConstants.kVelocityGain, DriveConstants.kAccelerationGain);
     
     m_frontLeftVelPIDController.setFF(DriveConstants.kFFrontLeftVel, DriveConstants.kVelPidSlot); 
     m_frontLeftVelPIDController.setP(DriveConstants.kPFrontLeftVel, DriveConstants.kVelPidSlot);

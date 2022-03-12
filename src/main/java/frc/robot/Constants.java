@@ -5,6 +5,7 @@
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.revrobotics.CANSparkMax.IdleMode;
 
 //import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -50,7 +51,10 @@ public final class Constants {
             new Translation2d(-kWheelBase / 2, kTrackWidth / 2),
             new Translation2d(-kWheelBase / 2, -kTrackWidth / 2));
 
+    public static final IdleMode kIdleMode = IdleMode.kBrake;
+    public static final int kCurrentLimit = 40; // Amps
     public static final double kOpenLoopRampRate = 0.7; // Time in seconds to go from 0 to full throttle.
+    public static final double kClosedLoopRampRate = 0.7; // Time in seconds to go from 0 to full throttle.
     public static final double kMaxSpeedMetersPerSecond = 10; 
     public static final double kMaxAngularSpeedRadiansPerSecond = 2 * Math.PI;
     public static final double kWheelDiameterMeters = 0.2032;
