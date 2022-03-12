@@ -114,6 +114,8 @@ public final class Constants {
 
   public static final class OIConstants {
     public static final int kDriverControllerPort = 0;
+    public static final int kUpDPad = 0;
+    public static final int kDownDPad = 180;
   }
 
   public static final class AutoConstants {
@@ -135,7 +137,25 @@ public final class Constants {
   public static final class ShooterConstants {
     public static final double kLowShooterOutput = 0.5;
     public static final double kHighShooterOutput = 1;
-    public static final int kShooterPort = 4;
+    public static final int kShooterPort = 0;
     public static final boolean kShooterMotorInverted = false;
+  }
+
+  public static final class IntakeConstants {
+    public static final int kIntakePort = 0;
+    public static final double kIntakeOutput = 0.25;
+    public static final boolean kIntakeMotorInverted = false;
+  }
+
+  public static final class ElevatorConstants {
+    //1 = left motor, 2 = right motor
+    public static final int kElevatorPort1 = 0;
+    public static final int kElevatorPort2 = 4;
+    public static final int kElevatorPort3 = 0;
+    public static final double kElevatorOutput = 0.25;
+    //inverted: left true = up, right true = down, left false = down, right false = up
+    public static final boolean kElevatorMotor1Inverted = true;
+    public static final boolean kElevatorMotor2Inverted = false;
+    public static final double kElevatorMotor3Output = 0.25;
   }
 }
