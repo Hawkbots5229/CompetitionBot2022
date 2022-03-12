@@ -4,7 +4,7 @@
 
 package frc.robot;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.revrobotics.CANSparkMax.IdleMode;
 
 //import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -38,11 +38,11 @@ public final class Constants {
     public static final boolean kRearRightEncoderReversed = true;
     */    
 
-    public static final double kTrackWidth = 0.5;
     // Distance between centers of right and left wheels on robot
-    public static final double kWheelBase = 0.7;
+    public static final double kTrackWidth = 0.5461; // Meters (21.5 inches) 
     // Distance between centers of front and back wheels on robot
-
+    public static final double kWheelBase = 0.51435; // Meters (20.25 inches)
+    
     public static final MecanumDriveKinematics kDriveKinematics =
         new MecanumDriveKinematics(
             new Translation2d(kWheelBase / 2, kTrackWidth / 2),
@@ -50,8 +50,11 @@ public final class Constants {
             new Translation2d(-kWheelBase / 2, kTrackWidth / 2),
             new Translation2d(-kWheelBase / 2, -kTrackWidth / 2));
 
+    public static final IdleMode kIdleMode = IdleMode.kBrake;
+    public static final int kCurrentLimit = 40; // Amps
     public static final double kOpenLoopRampRate = 0.7; // Time in seconds to go from 0 to full throttle.
-    public static final double kMaxSpeedMetersPerSecond = 10; 
+    public static final double kClosedLoopRampRate = 0.7; // Time in seconds to go from 0 to full throttle.
+    public static final double kMaxSpeedMetersPerSecond = 5.22; // MtrPerSec 90% of 5.8 
     public static final double kMaxAngularSpeedRadiansPerSecond = 2 * Math.PI;
     public static final double kWheelDiameterMeters = 0.2032;
     public static final double kDrivetrainGearRatio = 10.71;
@@ -62,9 +65,9 @@ public final class Constants {
     // These characterization values MUST be determined either experimentally or theoretically
     // for *your* robot's drive.
     // The SysId tool provides a convenient method for obtaining these values for your robot.
-    public static final double kStaticGain = 1;
-    public static final double kVelocityGain = 0.8;
-    public static final double kAccelerationGain = 0.15;
+    public static final double kStaticGain = 0.1465;
+    public static final double kVelocityGain = 2.0;
+    public static final double kAccelerationGain = 1.5767;
     
 
     /** Example value only - as above, this must be tuned for your drive!
