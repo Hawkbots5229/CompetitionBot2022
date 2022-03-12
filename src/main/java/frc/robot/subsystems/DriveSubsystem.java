@@ -19,6 +19,7 @@ import edu.wpi.first.math.kinematics.MecanumDriveMotorVoltages;
 import edu.wpi.first.math.kinematics.MecanumDriveOdometry;
 import edu.wpi.first.math.kinematics.MecanumDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.DriveConstants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -74,6 +75,8 @@ public class DriveSubsystem extends SubsystemBase {
     m_drive = new MecanumDrive(m_frontLeft, m_rearLeft, m_frontRight, m_rearRight);
     m_odometry = new MecanumDriveOdometry(DriveConstants.kDriveKinematics, m_gyro.getRotation2d());
     m_feedForward = new SimpleMotorFeedforward(DriveConstants.kStaticGain, DriveConstants.kVelocityGain, DriveConstants.kAccelerationGain);
+    m_drive.setSafetyEnabled(true);
+    m_drive.setExpiration(0.1);
   }
 
   @Override
@@ -86,7 +89,13 @@ public class DriveSubsystem extends SubsystemBase {
             m_rearLeftEncoder.getVelocity(),
             m_frontRightEncoder.getVelocity(),
             m_rearRightEncoder.getVelocity()));
-  }
+
+    SmartDashboard.putNumber("Front Left Wheel Velocity", m_frontLeftEncoder.getVelocity());
+    SmartDashboard.putNumber("Rear Left Wheel Velocity", m_rearLeftEncoder.getVelocity());
+    SmartDashboard.putNumber("Front Right Wheel Velocity", m_frontRightEncoder.getVelocity());
+    SmartDashboard.putNumber("Rear Right Wheel Velocity", m_rearRightEncoder.getVelocity());
+    SmartDashboard.putNumber("Average Velocity", getRobotVelocity());
+}
 
   private void initMotors() {
     
@@ -185,8 +194,8 @@ public class DriveSubsystem extends SubsystemBase {
   /**
    * Method to drive the robot using joystick info and PID control. Speeds range from [-1, 1].
    *
-   * @param ySpeed Speed of the robot in the x direction (forward).
-   * @param xSpeed Speed of the robot in the y direction (sideways).
+   * @param ySpeed Speed of the robot in the y direction (forward).
+   * @param xSpeed Speed of the robot in the x direction (sideways).
    * @param rot Angular rate of the robot.
    * @param fieldRelative Whether the provided x and y speeds are relative to the field.
    */
@@ -199,8 +208,8 @@ public class DriveSubsystem extends SubsystemBase {
     MecanumDriveWheelSpeeds mecanumDriveWheelSpeeds =
         DriveConstants.kDriveKinematics.toWheelSpeeds(
             fieldRelative
-                ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeedMeterPerSec, ySpeedMeterPerSec, rotRadiansPerSec, m_gyro.getRotation2d())
-                : new ChassisSpeeds(xSpeedMeterPerSec, ySpeedMeterPerSec, rotRadiansPerSec));
+                ? ChassisSpeeds.fromFieldRelativeSpeeds(ySpeedMeterPerSec, xSpeedMeterPerSec, rotRadiansPerSec, m_gyro.getRotation2d())
+                : new ChassisSpeeds(ySpeedMeterPerSec, xSpeedMeterPerSec, rotRadiansPerSec));
 
     mecanumDriveWheelSpeeds.desaturate(DriveConstants.kMaxSpeedMetersPerSecond);
 
@@ -258,6 +267,60 @@ public class DriveSubsystem extends SubsystemBase {
     m_frontRightEncoder.setPosition(0);
     m_rearRightEncoder.setPosition(0);
   }
+
+  /** Stops all drive motors */
+  public void stopMotors() {
+    m_frontLeft.stopMotor();
+    m_rearLeft.stopMotor();
+    m_frontRight.stopMotor();
+    m_rearRight.stopMotor();
+  }
+
+  /**
+   * Gets drive velocity in meters per second by averaging each wheel velocity.
+   * Only works in foreward and reverse.
+   *
+   * @return the robot's ground velocity
+   */
+  public double getRobotVelocity() {
+    final double m_frontLeftVel = m_frontLeftEncoder.getVelocity();
+    final double m_rearLeftVel = m_rearLeftEncoder.getVelocity();
+    final double m_frontRightVel = m_frontRightEncoder.getVelocity();
+    final double m_rearRightVel = m_rearRightEncoder.getVelocity();
+
+    return (m_frontLeftVel + m_rearLeftVel + m_frontRightVel + m_rearRightVel) / 4;
+  }
+
+    /**
+   * Gets drive velocity in meters per second by averaging each wheel velocity.
+   * Only works in foreward and reverse.
+   *
+   * @return the robot's ground velocity
+   */
+  public MecanumDriveWheelSpeeds getWheelVelocities() {
+    final double m_frontLeftVel = m_frontLeftEncoder.getVelocity();
+    final double m_rearLeftVel = m_rearLeftEncoder.getVelocity();
+    final double m_frontRightVel = m_frontRightEncoder.getVelocity();
+    final double m_rearRightVel = m_rearRightEncoder.getVelocity();
+
+    return new MecanumDriveWheelSpeeds(m_frontLeftVel, m_frontRightVel, m_rearLeftVel, m_rearRightVel);
+  }
+
+  /**
+   * Gets robot position in meters by averaging each wheel position.
+   * Does not indicate direction.
+   *
+   * @return the robot's position
+   */
+  public double getRobotPosition() {
+    final double m_frontLeftPos = Math.abs(m_frontLeftEncoder.getPosition());
+    final double m_rearLeftPos = Math.abs(m_rearLeftEncoder.getPosition());
+    final double m_frontRightPos = Math.abs(m_frontRightEncoder.getPosition());
+    final double m_rearRightPos = Math.abs(m_rearRightEncoder.getPosition());
+
+    return (m_frontLeftPos + m_rearLeftPos + m_frontRightPos + m_rearRightPos) / 4;
+  }
+
 
   /**
    * Gets the front left drive encoder.
@@ -346,8 +409,20 @@ public class DriveSubsystem extends SubsystemBase {
    * @return The turn rate of the robot, in degrees per second
    */
   public double getTurnRate() {
+    // TODO: Verify direction
     return -m_gyro.getRate();
   }
+
+    /**
+   * Returns the turn rate of the robot.
+   *
+   * @return The yaw of the robot, in degrees
+   */
+  public double getAngle() {
+    // TODO: Verify direction
+    return -m_gyro.getAngle();
+  }
+
 
     /**
    * Returns the currently-estimated pose of the robot.

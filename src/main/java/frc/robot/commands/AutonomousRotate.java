@@ -10,20 +10,20 @@ import frc.robot.subsystems.DriveSubsystem;
 public class AutonomousRotate extends CommandBase {
   private final DriveSubsystem m_robotDrive;
   private final double m_degrees;
-  private final double m_speed;
+  private final double m_rotSpeed;
 
   /**
    * Creates a new AutonomousRotate. This command will turn your robot for a desired rotation (in
    * degrees) and rotational speed.
    *
-   * @param speed The speed which the robot will drive. Negative is in reverse.
+   * @param rotSpeed The angular speed of the robot.
    * @param degrees Degrees to turn. Leverages encoders to compare distance.
    * @param robotDrive The drivetrain subsystem on which this command will run
    */
-  public AutonomousRotate(DriveSubsystem robotDrive, double speed, double degrees) {
+  public AutonomousRotate(DriveSubsystem robotDrive, double rotSpeed, double degrees) {
     this.m_robotDrive = robotDrive;
     this.m_degrees = degrees;
-    this.m_speed = speed;
+    this.m_rotSpeed = rotSpeed;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_robotDrive);
@@ -44,6 +44,6 @@ public class AutonomousRotate extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }
