@@ -18,6 +18,6 @@ public class AutonomousDefault extends SequentialCommandGroup {
     addCommands(
       new AutonomousDistance(m_robotDrive, 0.2, 0, 5),
       new AutonomousDistance(m_robotDrive, -0.2, 0, 5),
-      new AutonomousRotate(m_robotDrive, 0, 0));
+      new AutonomousStop(m_robotDrive));
   }
 }
