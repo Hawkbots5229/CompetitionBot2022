@@ -75,7 +75,6 @@ public class DriveSubsystem extends SubsystemBase {
     m_drive = new MecanumDrive(m_frontLeft, m_rearLeft, m_frontRight, m_rearRight);
     m_odometry = new MecanumDriveOdometry(DriveConstants.kDriveKinematics, m_gyro.getRotation2d());
     m_feedForward = new SimpleMotorFeedforward(DriveConstants.kStaticGain, DriveConstants.kVelocityGain, DriveConstants.kAccelerationGain);
-    m_drive.setSafetyEnabled(true);
     m_drive.setExpiration(0.1);
   }
 
@@ -182,7 +181,7 @@ public class DriveSubsystem extends SubsystemBase {
    */
   @SuppressWarnings("ParameterName")
   public void drive(double ySpeed, double xSpeed, double rot, boolean fieldRelative) {
-
+    m_drive.setSafetyEnabled(true);
     if (fieldRelative) {
       m_drive.driveCartesian(ySpeed, xSpeed, rot, -m_gyro.getAngle());
     } else {
@@ -201,6 +200,7 @@ public class DriveSubsystem extends SubsystemBase {
    */
   @SuppressWarnings("ParameterName")
   public void drivePID(double ySpeed, double xSpeed, double rot, boolean fieldRelative) {
+    m_drive.setSafetyEnabled(false);
     double xSpeedMeterPerSec = xSpeed * DriveConstants.kMaxSpeedMetersPerSecond;
     double ySpeedMeterPerSec = ySpeed * DriveConstants.kMaxSpeedMetersPerSecond;
     double rotRadiansPerSec = rot * DriveConstants.kMaxAngularSpeedRadiansPerSecond;

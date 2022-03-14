@@ -17,7 +17,6 @@ public class AutonomousDefault extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new AutonomousDistance(m_robotDrive, 0.2, 0, 5),
-      new AutonomousDistance(m_robotDrive, -0.2, 0, 5),
-      new AutonomousStop(m_robotDrive));
+      new AutonomousDistance(m_robotDrive, -0.2, 0, 5));
   }
 }
