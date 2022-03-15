@@ -131,6 +131,8 @@ public final class Constants {
     public static final double kPYController = 0.5;
     public static final double kPThetaController = 0.5;
 
+    public static final double kShooterAutonDelay = 3;
+
     // Constraint for the motion profilied robot angle controller
     public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
         new TrapezoidProfile.Constraints(
@@ -152,13 +154,14 @@ public final class Constants {
 
   public static final class ElevatorConstants {
     //1 = left motor, 2 = right motor
-    public static final int kElevatorPort1 = 0;
-    public static final int kElevatorPort2 = 4;
+    public static final int kElevatorPort1 = 4;
+    public static final int kElevatorPort2 = 0;
     public static final int kElevatorPort3 = 0;
     public static final double kElevatorOutput = 0.25;
     //inverted: left true = up, right true = down, left false = down, right false = up
     public static final boolean kElevatorMotor1Inverted = true;
     public static final boolean kElevatorMotor2Inverted = false;
+    public static final boolean kElevatorMotor3Inverted = false;
     public static final double kElevatorMotor3Output = 0.25;
   }
 }

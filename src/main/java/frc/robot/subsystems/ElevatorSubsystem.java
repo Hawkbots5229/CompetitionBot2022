@@ -26,12 +26,13 @@ public class ElevatorSubsystem extends SubsystemBase {
   public ElevatorSubsystem() {
     m_elevatorMotor1.setInverted(ElevatorConstants.kElevatorMotor1Inverted);
     m_elevatorMotor2.setInverted(ElevatorConstants.kElevatorMotor2Inverted);
+    m_elevatorMotor3.setInverted(ElevatorConstants.kElevatorMotor3Inverted);
   }
 
   public void setTargetOutput(double output) {
     m_elevatorMotor1.set(ControlMode.PercentOutput, output);
     m_elevatorMotor2.set(ControlMode.PercentOutput, output);
-    m_elevatorMotor3.set(ControlMode.PercentOutput, ElevatorConstants.kElevatorMotor3Output);
+    m_elevatorMotor3.set(ControlMode.PercentOutput, Math.abs(output));
   }
 
   @Override

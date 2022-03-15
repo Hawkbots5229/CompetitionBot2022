@@ -5,18 +5,23 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants.ElevatorConstants;
+import frc.robot.Constants.ShooterConstants;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutonomousDefault extends SequentialCommandGroup {
+
   /** Creates a new AutonomousDefault. */
-  public AutonomousDefault(DriveSubsystem m_robotDrive) {
+  public AutonomousDefault(DriveSubsystem m_robotDrive, ShooterSubsystem m_robotShoot, ElevatorSubsystem m_robotElevate) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new AutonomousDistance(m_robotDrive, 0.2, 0, 5),
-      new AutonomousDistance(m_robotDrive, -0.2, 0, 5));
+      new AutonomousShootBall(m_robotShoot, ShooterConstants.kLowShooterOutput, m_robotElevate, ElevatorConstants.kElevatorOutput),
+      new AutonomousDistance(m_robotDrive, -0.2, 0, 2));
   }
 }

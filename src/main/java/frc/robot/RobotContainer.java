@@ -108,7 +108,7 @@ public class RobotContainer {
         .toggleWhenPressed(new ElevateBall(m_robotElevate, -ElevatorConstants.kElevatorOutput));
 
     // Setup SmartDashboard options
-    m_chooser.setDefaultOption("Basic Auto", new AutonomousDefault(m_robotDrive));
+    m_chooser.setDefaultOption("Basic Auto", new AutonomousDefault(m_robotDrive, m_robotShooter, m_robotElevate));
     SmartDashboard.putData(m_chooser);
   }
 
