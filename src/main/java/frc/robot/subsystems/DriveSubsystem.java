@@ -76,10 +76,6 @@ public class DriveSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Front Left Wheel Velocity", m_frontLeftEncoder.getVelocity());
-    SmartDashboard.putNumber("Rear Left Wheel Velocity", m_rearLeftEncoder.getVelocity());
-    SmartDashboard.putNumber("Front Right Wheel Velocity", m_frontRightEncoder.getVelocity());
-    SmartDashboard.putNumber("Rear Right Wheel Velocity", m_rearRightEncoder.getVelocity());
     SmartDashboard.putNumber("Average Velocity", getRobotVelocity());
 }
 
