@@ -13,10 +13,8 @@ import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
-import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.MecanumDriveMotorVoltages;
-import edu.wpi.first.math.kinematics.MecanumDriveOdometry;
 import edu.wpi.first.math.kinematics.MecanumDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -62,7 +60,6 @@ public class DriveSubsystem extends SubsystemBase {
 
   // Misc declarations
   private final SimpleMotorFeedforward m_feedForward;
-  private final MecanumDriveOdometry m_odometry;
   private final MecanumDrive m_drive;   
 
   /** Creates a new DriveSubsystem. */
@@ -73,22 +70,12 @@ public class DriveSubsystem extends SubsystemBase {
     initVelControl();
 
     m_drive = new MecanumDrive(m_frontLeft, m_rearLeft, m_frontRight, m_rearRight);
-    m_odometry = new MecanumDriveOdometry(DriveConstants.kDriveKinematics, m_gyro.getRotation2d());
     m_feedForward = new SimpleMotorFeedforward(DriveConstants.kStaticGain, DriveConstants.kVelocityGain, DriveConstants.kAccelerationGain);
     m_drive.setExpiration(0.1);
   }
 
   @Override
   public void periodic() {
-    // Update the odometry in the periodic block
-    m_odometry.update(
-        m_gyro.getRotation2d(),
-        new MecanumDriveWheelSpeeds(
-            m_frontLeftEncoder.getVelocity(),
-            m_rearLeftEncoder.getVelocity(),
-            m_frontRightEncoder.getVelocity(),
-            m_rearRightEncoder.getVelocity()));
-
     SmartDashboard.putNumber("Front Left Wheel Velocity", m_frontLeftEncoder.getVelocity());
     SmartDashboard.putNumber("Rear Left Wheel Velocity", m_rearLeftEncoder.getVelocity());
     SmartDashboard.putNumber("Front Right Wheel Velocity", m_frontRightEncoder.getVelocity());
@@ -216,7 +203,7 @@ public class DriveSubsystem extends SubsystemBase {
     setSpeeds(mecanumDriveWheelSpeeds);
   }
 
-      /**
+   /**
    * Set the desired speeds for each wheel.
    *
    * @param speeds The desired wheel speeds.
@@ -321,52 +308,6 @@ public class DriveSubsystem extends SubsystemBase {
     return (m_frontLeftPos + m_rearLeftPos + m_frontRightPos + m_rearRightPos) / 4;
   }
 
-
-  /**
-   * Gets the front left drive encoder.
-   *
-   * @return the front left drive encoder
-   */
-  public RelativeEncoder getFrontLeftEncoder() {
-    return m_frontLeftEncoder;
-  }
-
-  /**
-   * Gets the rear left drive encoder.
-   *
-   * @return the rear left drive encoder
-   */
-  public RelativeEncoder getRearLeftEncoder() {
-    return m_rearLeftEncoder;
-  }
-
-  /**
-   * Gets the front right drive encoder.
-   *
-   * @return the front right drive encoder
-   */
-  public RelativeEncoder getFrontRightEncoder() {
-    return m_frontRightEncoder;
-  }
-
-  /**
-   * Gets the rear right drive encoder.
-   *
-   * @return the rear right encoder
-   */
-  public RelativeEncoder getRearRightEncoder() {
-    return m_rearRightEncoder;
-  }
-
-    /**
-   * Gets simple feedforward object for drive motors.
-   *
-   * @return the simple feedforward object for drive motors.
-   */
-  public SimpleMotorFeedforward getFeedForward() {
-    return m_feedForward;
-  }
-
   /**
    * Gets the current wheel speeds.
    *
@@ -421,24 +362,5 @@ public class DriveSubsystem extends SubsystemBase {
   public double getAngle() {
     // TODO: Verify direction
     return -m_gyro.getAngle();
-  }
-
-
-    /**
-   * Returns the currently-estimated pose of the robot.
-   *
-   * @return The pose.
-   */
-  public Pose2d getPose() {
-    return m_odometry.getPoseMeters();
-  }
-
-  /**
-   * Resets the odometry to the specified pose.
-   *
-   * @param pose The pose to which to set the odometry.
-   */
-  public void resetOdometry(Pose2d pose) {
-    m_odometry.resetPosition(pose, m_gyro.getRotation2d());
   }
 }
