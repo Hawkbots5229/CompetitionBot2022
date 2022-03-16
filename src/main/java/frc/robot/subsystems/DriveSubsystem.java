@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.SPI;
 
+import javax.lang.model.util.ElementScanner6;
+
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -163,7 +165,7 @@ public class DriveSubsystem extends SubsystemBase {
    *
    * @param ySpeed Speed of the robot in the y direction (forward/backwards).
    * @param xSpeed Speed of the robot in the x direction (sideways). 
-   * @param rot Angular rate of the robot.
+   * @param rot Angular rate of the robot. Clockwise is positive.
    * @param fieldRelative Whether the provided x and y speeds are relative to the field.
    */
   @SuppressWarnings("ParameterName")
@@ -182,7 +184,7 @@ public class DriveSubsystem extends SubsystemBase {
    *
    * @param ySpeed Speed of the robot in the y direction (forward).
    * @param xSpeed Speed of the robot in the x direction (sideways).
-   * @param rot Angular rate of the robot.
+   * @param rot Angular rate of the robot. Clockwise is positive.
    * @param fieldRelative Whether the provided x and y speeds are relative to the field.
    */
   @SuppressWarnings("ParameterName")
@@ -336,22 +338,17 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   /**
-   * Returns the heading of the robot.
-   *
-   * @return the robot's heading in degrees, from -180 to 180
-   */
-  public double getHeading() {
-    return m_gyro.getRotation2d().getDegrees();
-  }
-
-  /**
    * Returns the turn rate of the robot.
    *
    * @return The turn rate of the robot, in degrees per second
    */
   public double getTurnRate() {
-    // TODO: Verify direction
-    return -m_gyro.getRate();
+
+    if (DriveConstants.kGyroInverted) {
+      return -m_gyro.getRate();
+    } else {
+      return m_gyro.getRate();
+    }
   }
 
     /**
@@ -360,7 +357,11 @@ public class DriveSubsystem extends SubsystemBase {
    * @return The yaw of the robot, in degrees
    */
   public double getAngle() {
-    // TODO: Verify direction
-    return -m_gyro.getAngle();
+
+    if (DriveConstants.kGyroInverted) {
+      return -m_gyro.getAngle();
+    } else {
+      return m_gyro.getAngle();
+    }
   }
 }

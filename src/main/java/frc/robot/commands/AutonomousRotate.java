@@ -16,7 +16,7 @@ public class AutonomousRotate extends CommandBase {
    * Creates a new AutonomousRotate. This command will turn your robot for a desired rotation (in
    * degrees) and rotational speed.
    *
-   * @param rotSpeed The angular speed of the robot.
+   * @param rotSpeed The angular speed of the robot. Clockwise is positive.
    * @param degrees Degrees to turn. Leverages encoders to compare distance.
    * @param robotDrive The drivetrain subsystem on which this command will run
    */

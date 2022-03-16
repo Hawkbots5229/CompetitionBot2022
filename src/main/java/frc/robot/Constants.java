@@ -31,12 +31,7 @@ public final class Constants {
     public static final boolean kFrontRightMotorReversed = true; //true
     public static final boolean kRearRightMotorReversed = true; //true
 
-    /*
-    public static final boolean kFrontLeftEncoderReversed = false;
-    public static final boolean kRearLeftEncoderReversed = true;
-    public static final boolean kFrontRightEncoderReversed = false;
-    public static final boolean kRearRightEncoderReversed = true;
-    */    
+    public static final boolean kGyroInverted = false; // Clockwise should be a positive angle   
 
     // Distance between centers of right and left wheels on robot
     public static final double kTrackWidth = 0.5461; // Meters (21.5 inches) 
