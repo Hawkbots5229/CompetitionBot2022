@@ -4,24 +4,13 @@
 
 package frc.robot;
 
-//import edu.wpi.first.math.controller.PIDController;
-//import edu.wpi.first.math.controller.ProfiledPIDController;
-//import edu.wpi.first.math.geometry.Pose2d;
-//import edu.wpi.first.math.geometry.Rotation2d;
-//import edu.wpi.first.math.geometry.Translation2d;
-//import edu.wpi.first.math.trajectory.Trajectory;
-//import edu.wpi.first.math.trajectory.TrajectoryConfig;
-//import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-//import frc.robot.Constants.AutoConstants;
-//import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.ElevatorConstants;
-//import frc.robot.Constants.AutoConstants;
-//import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.ShootBall;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.ShooterConstants;
@@ -33,11 +22,9 @@ import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
-//import edu.wpi.first.wpilibj2.command.MecanumControllerCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
-//import java.util.List;
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -60,6 +47,10 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+
+
+    CameraServer.startAutomaticCapture("Usb Camera 0", 0);
+
     // Configure the button bindings
     configureButtonBindings();
 
