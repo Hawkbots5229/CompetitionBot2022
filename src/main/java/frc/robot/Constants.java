@@ -20,9 +20,9 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
  */
 public final class Constants {
   public static final class DriveConstants {
-    public static final int kFrontLeftMotorPort = 7;
-    public static final int kRearLeftMotorPort = 6;
-    public static final int kFrontRightMotorPort = 5;
+    public static final int kFrontLeftMotorPort = 2;
+    public static final int kRearLeftMotorPort = 4;
+    public static final int kFrontRightMotorPort = 3;
     public static final int kRearRightMotorPort = 1;
 
     public static final boolean kFrontLeftMotorReversed = false;
@@ -134,28 +134,28 @@ public final class Constants {
   }
 
   public static final class ShooterConstants {
-    public static final double kLowShooterOutput = 0.5;
-    public static final double kHighShooterOutput = 1;
-    public static final int kShooterPort = 0;
-    public static final boolean kShooterMotorInverted = false;
+    public static final double kLowShooterOutput = 0.25;
+    public static final double kHighShooterOutput = 0.85;
+    public static final int kShooterPort = 11;
+    public static final boolean kShooterMotorInverted = true;
   }
 
   public static final class IntakeConstants {
-    public static final int kIntakePort = 0;
-    public static final double kIntakeOutput = 0.25;
+    public static final int kIntakePort = 12;
+    public static final double kIntakeOutput = 1;
     public static final boolean kIntakeMotorInverted = false;
   }
 
   public static final class ElevatorConstants {
     //1 = left motor, 2 = right motor
-    public static final int kElevatorPort1 = 4;
-    public static final int kElevatorPort2 = 0;
-    public static final int kElevatorPort3 = 0;
-    public static final double kElevatorOutput = 0.25;
+    public static final int kElevatorPort1 = 13;
+    public static final int kElevatorPort2 = 14;
+    public static final int kElevatorPort3 = 10;
+    public static final double kElevatorOutput = 0.5;
     //inverted: left true = up, right true = down, left false = down, right false = up
     public static final boolean kElevatorMotor1Inverted = true;
     public static final boolean kElevatorMotor2Inverted = false;
-    public static final boolean kElevatorMotor3Inverted = false;
+    public static final boolean kElevatorMotor3Inverted = true;
     public static final double kElevatorMotor3Output = 0.25;
   }
 }
