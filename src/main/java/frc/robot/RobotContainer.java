@@ -41,6 +41,7 @@ public class RobotContainer {
 
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
+  XboxController m_mechController = new XboxController(OIConstants.kMechControllerPort);
 
   // Create SmartDashboard chooser for autonomous routines
   private final SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -62,7 +63,7 @@ public class RobotContainer {
         new RunCommand(
             () ->
                 m_robotDrive.drive(
-                  -m_driverController.getLeftY(),
+                    -m_driverController.getLeftY(),
                     m_driverController.getLeftX(),                   
                     m_driverController.getRightX(),
                     false),
@@ -82,20 +83,23 @@ public class RobotContainer {
         .whenReleased(() -> m_robotDrive.setMaxOutput(1));
 
     //Dump when x is pressed
-    new JoystickButton(m_driverController, Button.kX.value)
+    new JoystickButton(m_mechController, Button.kX.value)
         .toggleWhenPressed(new ShootBall(m_robotShooter, ShooterConstants.kLowShooterOutput));
     
     //Shoot at normal speed when A is pressed
-    new JoystickButton(m_driverController, Button.kA.value)
+    new JoystickButton(m_mechController, Button.kA.value)
         .toggleWhenPressed(new ShootBall(m_robotShooter, ShooterConstants.kHighShooterOutput));
     
-    new JoystickButton(m_driverController, Button.kB.value)
+    new JoystickButton(m_mechController, Button.kB.value)
         .toggleWhenPressed(new IntakeBall(m_robotIntake, IntakeConstants.kIntakeOutput));
 
-    new POVButton(m_driverController, OIConstants.kUpDPad)
+    new JoystickButton(m_mechController, Button.kY.value)
+        .toggleWhenPressed(new IntakeBall(m_robotIntake, -IntakeConstants.kIntakeOutput));
+
+    new POVButton(m_mechController, OIConstants.kUpDPad)
         .toggleWhenPressed(new ElevateBall(m_robotElevate, ElevatorConstants.kElevatorOutput));
 
-    new POVButton(m_driverController, OIConstants.kDownDPad)
+    new POVButton(m_mechController, OIConstants.kDownDPad)
         .toggleWhenPressed(new ElevateBall(m_robotElevate, -ElevatorConstants.kElevatorOutput));
 
     // Setup SmartDashboard options
