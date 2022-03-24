@@ -32,7 +32,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void setTargetOutput(double output) {
     m_elevatorMotor1.set(ControlMode.PercentOutput, output);
     m_elevatorMotor2.set(ControlMode.PercentOutput, output);
-    m_elevatorMotor3.set(ControlMode.PercentOutput, Math.abs(output));
+    m_elevatorMotor3.set(ControlMode.PercentOutput, output);
   }
 
   @Override

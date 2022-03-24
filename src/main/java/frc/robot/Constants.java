@@ -143,7 +143,7 @@ public final class Constants {
 
   public static final class IntakeConstants {
     public static final int kIntakePort = 12;
-    public static final double kIntakeOutput = 1;
+    public static final double kIntakeOutput = 0.75;
     public static final boolean kIntakeMotorInverted = false;
   }
 
@@ -152,11 +152,11 @@ public final class Constants {
     public static final int kElevatorPort1 = 13;
     public static final int kElevatorPort2 = 14;
     public static final int kElevatorPort3 = 10;
-    public static final double kElevatorOutput = 0.5;
+    public static final double kElevatorOutput = 0.75;
     //inverted: left true = up, right true = down, left false = down, right false = up
     public static final boolean kElevatorMotor1Inverted = true;
     public static final boolean kElevatorMotor2Inverted = false;
     public static final boolean kElevatorMotor3Inverted = true;
-    public static final double kElevatorMotor3Output = 0.25;
+    public static final double kElevatorMotor3Output = 1;
   }
 }
