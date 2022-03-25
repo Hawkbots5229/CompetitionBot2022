@@ -16,9 +16,11 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.AutonomousDefault;
 import frc.robot.commands.ElevateBall;
+import frc.robot.commands.ElevateWheelSpin;
 import frc.robot.commands.IntakeBall;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.ElevatorWheelSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -38,6 +40,7 @@ public class RobotContainer {
   private final ShooterSubsystem m_robotShooter = new ShooterSubsystem();
   private final IntakeSubsystem m_robotIntake = new IntakeSubsystem();
   private final ElevatorSubsystem m_robotElevate = new ElevatorSubsystem();
+  private final ElevatorWheelSubsystem m_wheelSpin = new ElevatorWheelSubsystem();
 
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
@@ -83,6 +86,14 @@ public class RobotContainer {
         .whenPressed(() -> m_robotDrive.setMaxOutput(0.5))
         .whenReleased(() -> m_robotDrive.setMaxOutput(1));
 
+    // Inake elevator wheel 3
+    new JoystickButton(m_mechController, Button.kLeftBumper.value)
+        .toggleWhenPressed(new ElevateWheelSpin(m_wheelSpin, ElevatorConstants.kElevatorMotor3Output));
+    
+    // Outake elevator wheel 3
+    new JoystickButton(m_mechController, Button.kRightBumper.value)
+        .toggleWhenPressed(new ElevateWheelSpin(m_wheelSpin, -ElevatorConstants.kElevatorMotor3Output));
+
     //Dump when x is pressed
     new JoystickButton(m_mechController, Button.kX.value)
         .toggleWhenPressed(new ShootBall(m_robotShooter, ShooterConstants.kLowShooterOutput));
@@ -92,16 +103,22 @@ public class RobotContainer {
         .toggleWhenPressed(new ShootBall(m_robotShooter, ShooterConstants.kHighShooterOutput));
     
     new JoystickButton(m_mechController, Button.kB.value)
-        .toggleWhenPressed(new IntakeBall(m_robotIntake, IntakeConstants.kIntakeOutput));
+        .whenPressed(new IntakeBall(m_robotIntake, IntakeConstants.kIntakeOutput))
+        .whenReleased(new IntakeBall(m_robotIntake, 0));
 
     new JoystickButton(m_mechController, Button.kY.value)
-        .toggleWhenPressed(new IntakeBall(m_robotIntake, -IntakeConstants.kIntakeOutput));
+        .whenPressed(new IntakeBall(m_robotIntake, -IntakeConstants.kIntakeOutput))
+        .whenReleased(new IntakeBall(m_robotIntake, 0));
 
     new POVButton(m_mechController, OIConstants.kUpDPad)
-        .toggleWhenPressed(new ElevateBall(m_robotElevate, ElevatorConstants.kElevatorOutput));
+        .whenPressed(new ElevateBall(m_robotElevate, ElevatorConstants.kElevatorOutput))
+        .whenReleased(new ElevateBall(m_robotElevate, 0));
 
     new POVButton(m_mechController, OIConstants.kDownDPad)
-        .toggleWhenPressed(new ElevateBall(m_robotElevate, -ElevatorConstants.kElevatorOutput));
+        .whenPressed(new ElevateBall(m_robotElevate, -ElevatorConstants.kElevatorOutput))
+        .whenReleased(new ElevateBall(m_robotElevate, 0));
+
+
 
     // Setup SmartDashboard options
     m_chooser.setDefaultOption("Basic Auto", new AutonomousDefault(m_robotDrive, m_robotShooter, m_robotElevate));
