@@ -24,7 +24,7 @@ public class AdjustIntakeHeight extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_intakeHeight.resetIntakeEncoder();
+    //m_intakeHeight.resetIntakeEncoder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -42,6 +42,6 @@ public class AdjustIntakeHeight extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_intakeHeight.getIntakeHeight() >= IntakeConstants.kIntakeHeight;
+    return ((m_intakeHeight.getIntakeHeight() >= IntakeConstants.kIntakeHeight) || (m_intakeHeight.getIntakeHeight() <= 0));
   }
 }

@@ -17,6 +17,7 @@ public class IntakeHeightSubsystem extends SubsystemBase {
   /** Creates a new intakeHeightSubsytem. */
   public IntakeHeightSubsystem() {
     m_intakeHeightMotor.setInverted(IntakeConstants.kIntakeHeightMotorInverted);
+    resetIntakeEncoder();
   }
 
   public void setTargetOutput(double output) {
@@ -28,7 +29,7 @@ public class IntakeHeightSubsystem extends SubsystemBase {
   }
   
   public double getIntakeHeight() {
-    final double m_intakeHeightPos = Math.abs(m_intakeHeightMotor.getSelectedSensorPosition());
+    final double m_intakeHeightPos = m_intakeHeightMotor.getSelectedSensorPosition();
     return (m_intakeHeightPos);
   }
 

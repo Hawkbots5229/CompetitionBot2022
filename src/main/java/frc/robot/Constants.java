@@ -156,10 +156,10 @@ public final class Constants {
 
   public static final class IntakeConstants {
     public static final int kIntakePort = 12;
-    public static final int kIntake2Port = 0;
+    public static final int kIntake2Port = 15;
     public static final double kIntakeOutput = 0.75;
     public static final double kAdjustIntakeOutput = 0.1;
-    public static final double kIntakeHeight = 0.5;
+    public static final double kIntakeHeight = 0.25;
     public static final boolean kIntakeMotorInverted = false;
     public static final boolean kIntakeHeightMotorInverted = false; 
   }
