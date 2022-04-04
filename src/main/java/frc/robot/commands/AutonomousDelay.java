@@ -10,10 +10,12 @@ import frc.robot.Constants.AutoConstants;
 
 public class AutonomousDelay extends CommandBase {
   private final Timer tmr = new Timer();
+  double delay;
   /** Creates a new AutonomousDelay. */
   public AutonomousDelay(double delay) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(delay);
+    //addRequirements(delay);
+    this.delay = delay;
   }
 
   // Called when the command is initially scheduled.

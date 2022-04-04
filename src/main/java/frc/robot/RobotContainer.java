@@ -115,7 +115,7 @@ public class RobotContainer {
     //Spin out intake and elevator wheel
     new JoystickButton(m_mechController, Button.kY.value)
         .whenPressed(new IntakeBall(m_robotIntake, -IntakeConstants.kIntakeOutput))
-        .whenReleased(new IntakeBall(m_robotIntake, 0));
+        .whenReleased(new IntakeBall(m_robotIntake, 0))
         .whenPressed(new ElevateWheelSpin(m_wheelSpin, -ElevatorConstants.kElevatorMotor3Output))
         .whenReleased(new ElevateWheelSpin(m_wheelSpin, 0));
 

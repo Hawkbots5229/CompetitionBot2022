@@ -7,12 +7,12 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.AutoConstants;
+import frc.robot.subsystems.ElevatorWheelSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.ElevatorWheelSubsystem.
 
 public class AutonomousIntake extends CommandBase {
   private final IntakeSubsystem m_ballIntake;
-  private final ElevatorWheelSubsystem m_wheelIntake
+  private final ElevatorWheelSubsystem m_wheelIntake;
   private final double intakeSpeed;
   private final double elevateWheelSpeed;
   private final Timer tmr = new Timer();

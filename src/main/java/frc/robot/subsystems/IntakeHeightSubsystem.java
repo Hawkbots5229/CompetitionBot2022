@@ -6,18 +6,16 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.FeedbackDevice;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
 
-public class IntakeSubsystem extends SubsystemBase {
+public class IntakeHeightSubsystem extends SubsystemBase {
 
   private final TalonSRX m_intakeHeightMotor = 
     new TalonSRX(IntakeConstants.kIntake2Port);
 
   /** Creates a new intakeHeightSubsytem. */
-  public IntakeSubsystem() {
+  public IntakeHeightSubsystem() {
     m_intakeHeightMotor.setInverted(IntakeConstants.kIntakeHeightMotorInverted);
   }
 
@@ -29,7 +27,7 @@ public class IntakeSubsystem extends SubsystemBase {
     m_intakeHeightMotor.setSelectedSensorPosition(0);
   }
   
-  public void getIntakeHeight() {
+  public double getIntakeHeight() {
     final double m_intakeHeightPos = Math.abs(m_intakeHeightMotor.getSelectedSensorPosition());
     return (m_intakeHeightPos);
   }
