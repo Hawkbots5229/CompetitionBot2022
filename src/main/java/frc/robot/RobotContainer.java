@@ -18,10 +18,12 @@ import frc.robot.commands.AutonomousDefault;
 import frc.robot.commands.ElevateBall;
 import frc.robot.commands.ElevateWheelSpin;
 import frc.robot.commands.IntakeBall;
+import frc.robot.commands.AdjustIntakeHeight;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.ElevatorWheelSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.IntakeHeightSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -39,6 +41,7 @@ public class RobotContainer {
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   private final ShooterSubsystem m_robotShooter = new ShooterSubsystem();
   private final IntakeSubsystem m_robotIntake = new IntakeSubsystem();
+  private final IntakeHeightSubsystem m_adjustIntake = new IntakeHeightSubsystem();
   private final ElevatorSubsystem m_robotElevate = new ElevatorSubsystem();
   private final ElevatorWheelSubsystem m_wheelSpin = new ElevatorWheelSubsystem();
 
@@ -86,13 +89,13 @@ public class RobotContainer {
         .whenPressed(() -> m_robotDrive.setMaxOutput(0.5))
         .whenReleased(() -> m_robotDrive.setMaxOutput(1));
 
-    // Inake elevator wheel 3
+    // extend intake when left bumber is released
     new JoystickButton(m_mechController, Button.kLeftBumper.value)
-        .toggleWhenPressed(new ElevateWheelSpin(m_wheelSpin, ElevatorConstants.kElevatorMotor3Output));
+        .whenReleased(new AdjustIntakeHeight(m_adjustIntake, IntakeConstants.kAdjustIntakeOutput));
     
-    // Outake elevator wheel 3
+    // intake intake when right bumper is released
     new JoystickButton(m_mechController, Button.kRightBumper.value)
-        .toggleWhenPressed(new ElevateWheelSpin(m_wheelSpin, -ElevatorConstants.kElevatorMotor3Output));
+        .whenReleased(new AdjustIntakeHeight(m_adjustIntake, -IntakeConstants.kAdjustIntakeOutput));
 
     //Dump when x is pressed
     new JoystickButton(m_mechController, Button.kX.value)
@@ -102,18 +105,26 @@ public class RobotContainer {
     new JoystickButton(m_mechController, Button.kA.value)
         .toggleWhenPressed(new ShootBall(m_robotShooter, ShooterConstants.kHighShooterVelocity));
     
+    //Intake and intake elevator wheel
     new JoystickButton(m_mechController, Button.kB.value)
         .whenPressed(new IntakeBall(m_robotIntake, IntakeConstants.kIntakeOutput))
-        .whenReleased(new IntakeBall(m_robotIntake, 0));
+        .whenReleased(new IntakeBall(m_robotIntake, 0))
+        .whenPressed(new ElevateWheelSpin(m_wheelSpin, ElevatorConstants.kElevatorMotor3Output))
+        .whenReleased(new ElevateWheelSpin(m_wheelSpin, 0));
 
+    //Spin out intake and elevator wheel
     new JoystickButton(m_mechController, Button.kY.value)
         .whenPressed(new IntakeBall(m_robotIntake, -IntakeConstants.kIntakeOutput))
         .whenReleased(new IntakeBall(m_robotIntake, 0));
+        .whenPressed(new ElevateWheelSpin(m_wheelSpin, -ElevatorConstants.kElevatorMotor3Output))
+        .whenReleased(new ElevateWheelSpin(m_wheelSpin, 0));
 
+    //elevator up
     new POVButton(m_mechController, OIConstants.kUpDPad)
         .whenPressed(new ElevateBall(m_robotElevate, ElevatorConstants.kElevatorOutput))
         .whenReleased(new ElevateBall(m_robotElevate, 0));
 
+    //elevator down
     new POVButton(m_mechController, OIConstants.kDownDPad)
         .whenPressed(new ElevateBall(m_robotElevate, -ElevatorConstants.kElevatorOutput))
         .whenReleased(new ElevateBall(m_robotElevate, 0));

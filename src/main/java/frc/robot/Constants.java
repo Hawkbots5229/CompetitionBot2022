@@ -128,6 +128,7 @@ public final class Constants {
 
     public static final double kShooterAutonDelay = 3;
     public static final double kIntakeAutonDelay = 2;
+    public static final double kAutonDelay = 2;
 
     // Constraint for the motion profilied robot angle controller
     public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
@@ -155,8 +156,12 @@ public final class Constants {
 
   public static final class IntakeConstants {
     public static final int kIntakePort = 12;
+    public static final int kIntake2Port = 0;
     public static final double kIntakeOutput = 0.75;
+    public static final double kAdjustIntakeOutput = 0.1;
+    public static final double kIntakeHeight = 0.5;
     public static final boolean kIntakeMotorInverted = false;
+    public static final boolean kIntakeHeightMotorInverted = false; 
   }
 
   public static final class ElevatorConstants {
