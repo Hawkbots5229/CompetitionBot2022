@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ElevatorConstants;
 
 public class ElevatorWheelSubsystem extends SubsystemBase {
-  /** Creates a new shooterSubsystem. */
+  /** Creates a new ElevatorWheelSubsystem. */
 
   private final TalonSRX m_wheelMotor = 
     new TalonSRX(ElevatorConstants.kElevatorPort3);

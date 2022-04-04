@@ -40,7 +40,9 @@ public class AutonomousShootBall extends CommandBase {
   @Override
   public void execute() {
     m_ballShooter.setTargetOutput(shooterSpeed);
-    m_ballElevate.setTargetOutput(elevateSpeed);
+    if(tmr.get() > 1){
+      m_ballElevate.setTargetOutput(elevateSpeed);
+    } 
   }
 
   // Called once the command ends or is interrupted.
