@@ -136,10 +136,21 @@ public final class Constants {
   }
 
   public static final class ShooterConstants {
-    public static final double kLowShooterOutput = 0.40;
-    public static final double kHighShooterOutput = 0.70;
+    public static final double kLowShooterOutput = 0.40; //0.4
+    public static final double kHighShooterOutput = 0.70; //0.7
+    public static final int kLowShooterVelocity = 3600; // RPM
+    public static final int kHighShooterVelocity = 6400; // RPM
     public static final int kShooterPort = 11;
-    public static final boolean kShooterMotorInverted = true;
+    public static final boolean kShooterMotorInverted = false;
+    public static final double kClosedLoopRampRate = 0.7; // Time in seconds to go from 0 to full throttle.
+    public static final IdleMode kIdleMode = IdleMode.kBrake;
+    public static final int kCurrentLimit = 40; // Amps
+
+    public static final int kVelPidSlot = 0;
+    public static final double kFVel = 0.000114;
+    public static final double kPVel = 0;
+    public static final double kDVel = 0;
+    public static final double kIVel = 0;
   }
 
   public static final class IntakeConstants {
@@ -153,7 +164,7 @@ public final class Constants {
     public static final int kElevatorPort1 = 13;
     public static final int kElevatorPort2 = 14;
     public static final int kElevatorPort3 = 10;
-    public static final double kElevatorOutput = 0.75;
+    public static final double kElevatorOutput = 1.0;
     //inverted: left true = up, right true = down, left false = down, right false = up
     public static final boolean kElevatorMotor1Inverted = true;
     public static final boolean kElevatorMotor2Inverted = false;

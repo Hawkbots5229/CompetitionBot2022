@@ -96,11 +96,11 @@ public class RobotContainer {
 
     //Dump when x is pressed
     new JoystickButton(m_mechController, Button.kX.value)
-        .toggleWhenPressed(new ShootBall(m_robotShooter, ShooterConstants.kLowShooterOutput));
+        .toggleWhenPressed(new ShootBall(m_robotShooter, ShooterConstants.kLowShooterVelocity));
     
     //Shoot at normal speed when A is pressed
     new JoystickButton(m_mechController, Button.kA.value)
-        .toggleWhenPressed(new ShootBall(m_robotShooter, ShooterConstants.kHighShooterOutput));
+        .toggleWhenPressed(new ShootBall(m_robotShooter, ShooterConstants.kHighShooterVelocity));
     
     new JoystickButton(m_mechController, Button.kB.value)
         .whenPressed(new IntakeBall(m_robotIntake, IntakeConstants.kIntakeOutput))
