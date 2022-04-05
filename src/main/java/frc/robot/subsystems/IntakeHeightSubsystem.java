@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
 
@@ -22,6 +24,7 @@ public class IntakeHeightSubsystem extends SubsystemBase {
 
   public void setTargetOutput(double output) {
     m_intakeHeightMotor.set(ControlMode.PercentOutput, output);
+
   }
   
   public void resetIntakeEncoder() {
@@ -29,12 +32,13 @@ public class IntakeHeightSubsystem extends SubsystemBase {
   }
   
   public double getIntakeHeight() {
-    final double m_intakeHeightPos = m_intakeHeightMotor.getSelectedSensorPosition();
+    final double m_intakeHeightPos = m_intakeHeightMotor.getSelectedSensorPosition()*-1;
     return (m_intakeHeightPos);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Intake Hight", getIntakeHeight());
   }
 }

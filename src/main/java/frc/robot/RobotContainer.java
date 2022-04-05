@@ -93,21 +93,29 @@ public class RobotContainer {
         .whenPressed(() -> m_robotDrive.setMaxOutput(0.5))
         .whenReleased(() -> m_robotDrive.setMaxOutput(1));
 
-    new JoystickButton(m_driverController, OIConstants.kUpDPad)
-        .whenPressed(new RobotClimb(m_robotClimber, ClimberConstants.kClimberMotorOutput))
+    new POVButton(m_driverController, OIConstants.kUpDPad)
+        .whenPressed(new RobotClimb(m_robotClimber, ClimberConstants.kClimberMotorOutputHigh))
         .whenReleased(new RobotClimb(m_robotClimber, 0));
 
-    new JoystickButton(m_driverController, OIConstants.kDownDPad)
-        .whenPressed(new RobotClimb(m_robotClimber, -ClimberConstants.kClimberMotorOutput))
+    new POVButton(m_driverController, OIConstants.kDownDPad)
+        .whenPressed(new RobotClimb(m_robotClimber, -ClimberConstants.kClimberMotorOutputHigh))
+        .whenReleased(new RobotClimb(m_robotClimber, 0));
+
+    new POVButton(m_driverController, OIConstants.kLeftDPad)
+        .whenPressed(new RobotClimb(m_robotClimber, ClimberConstants.kClimberMotorOutputLow))
+        .whenReleased(new RobotClimb(m_robotClimber, 0));
+
+    new POVButton(m_driverController, OIConstants.kRightDPad)
+        .whenPressed(new RobotClimb(m_robotClimber, -ClimberConstants.kClimberMotorOutputLow))
         .whenReleased(new RobotClimb(m_robotClimber, 0));
 
     // extend intake when left bumber is released
     new JoystickButton(m_mechController, Button.kLeftBumper.value)
-        .whenReleased(new AdjustIntakeHeight(m_adjustIntake, IntakeConstants.kAdjustIntakeOutput));
+        .whenPressed(new AdjustIntakeHeight(m_adjustIntake, IntakeConstants.kAdjustIntakeOutput));
     
     // intake intake when right bumper is released
     new JoystickButton(m_mechController, Button.kRightBumper.value)
-        .whenReleased(new AdjustIntakeHeight(m_adjustIntake, -IntakeConstants.kAdjustIntakeOutput));
+        .whenPressed(new AdjustIntakeHeight(m_adjustIntake, -IntakeConstants.kAdjustIntakeOutput));
 
     //Dump when x is pressed
     new JoystickButton(m_mechController, Button.kX.value)

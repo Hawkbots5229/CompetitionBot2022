@@ -12,21 +12,31 @@ import frc.robot.Constants.ClimberConstants;
 
 public class ClimberSubsystem extends SubsystemBase {
 
-  private final WPI_TalonFX m_climberLeftMotor = 
-    new WPI_TalonFX(ClimberConstants.kClimberLeftPort);
+  private final WPI_TalonFX m_climberLeftFrontMotor = 
+    new WPI_TalonFX(ClimberConstants.kClimberLeftFrontPort);
 
-  private final WPI_TalonFX m_climberRightMotor = 
-    new WPI_TalonFX(ClimberConstants.kClimberRightPort);
+  private final WPI_TalonFX m_climberLeftRearMotor = 
+    new WPI_TalonFX(ClimberConstants.kClimberLeftRearPort);
+
+  private final WPI_TalonFX m_climberRightFrontMotor = 
+    new WPI_TalonFX(ClimberConstants.kClimberRightFrontPort);
+
+  private final WPI_TalonFX m_climberRightRearMotor = 
+    new WPI_TalonFX(ClimberConstants.kClimberRightRearPort);
 
   /** Creates a new climberSubsystem. */
   public ClimberSubsystem() {
-    m_climberLeftMotor.setInverted(ClimberConstants.kClimberLeftMotorInverted);
-    m_climberRightMotor.setInverted(ClimberConstants.kClimberRightMotorInverted);
+    m_climberLeftFrontMotor.setInverted(ClimberConstants.kClimberLeftFrontInverted);
+    m_climberLeftRearMotor.setInverted(ClimberConstants.kClimberLeftRearInverted);
+    m_climberRightFrontMotor.setInverted(ClimberConstants.kClimberRightFrontInverted);
+    m_climberRightRearMotor.setInverted(ClimberConstants.kClimberRightRearInverted);
+    m_climberLeftRearMotor.follow(m_climberLeftFrontMotor);
+    m_climberRightRearMotor.follow(m_climberRightFrontMotor);
   }
 
   public void setTargetOutput(double output) {
-    m_climberLeftMotor.set(ControlMode.PercentOutput, output);
-    m_climberRightMotor.set(ControlMode.PercentOutput, output);
+    m_climberLeftFrontMotor.set(ControlMode.PercentOutput, output);
+    m_climberRightFrontMotor.set(ControlMode.PercentOutput, output);
   }
 
   @Override

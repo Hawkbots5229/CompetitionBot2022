@@ -114,6 +114,8 @@ public final class Constants {
     public static final int kMechControllerPort = 1;
     public static final int kUpDPad = 0;
     public static final int kDownDPad = 180;
+    public static final int kLeftDPad = 270;
+    public static final int kRightDPad = 90;
   }
 
   public static final class AutoConstants {
@@ -158,8 +160,8 @@ public final class Constants {
     public static final int kIntakePort = 12;
     public static final int kIntake2Port = 15;
     public static final double kIntakeOutput = 0.75;
-    public static final double kAdjustIntakeOutput = 0.1;
-    public static final double kIntakeHeight = 0.25;
+    public static final double kAdjustIntakeOutput = 0.5;
+    public static final double kIntakeHeight = 215;
     public static final boolean kIntakeMotorInverted = false;
     public static final boolean kIntakeHeightMotorInverted = false; 
   }
@@ -178,10 +180,15 @@ public final class Constants {
   }
 
   public static final class ClimberConstants {
-    public static final int kClimberLeftPort = 17;
-    public static final int kClimberRightPort = 16;
-    public static final boolean kClimberLeftMotorInverted = true;
-    public static final boolean kClimberRightMotorInverted = false;
-    public static final double kClimberMotorOutput = 0.1;
+    public static final int kClimberLeftFrontPort = 17;
+    public static final int kClimberLeftRearPort = 16;
+    public static final int kClimberRightFrontPort = 19;
+    public static final int kClimberRightRearPort = 18;
+    public static final boolean kClimberLeftFrontInverted = false;
+    public static final boolean kClimberLeftRearInverted = false;
+    public static final boolean kClimberRightFrontInverted = true;
+    public static final boolean kClimberRightRearInverted = true;
+    public static final double kClimberMotorOutputHigh = 0.55;
+    public static final double kClimberMotorOutputLow = 0.2;
   }
 }
