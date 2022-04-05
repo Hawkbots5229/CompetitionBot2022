@@ -30,6 +30,12 @@ public class ClimberSubsystem extends SubsystemBase {
     m_climberLeftRearMotor.setInverted(ClimberConstants.kClimberLeftRearInverted);
     m_climberRightFrontMotor.setInverted(ClimberConstants.kClimberRightFrontInverted);
     m_climberRightRearMotor.setInverted(ClimberConstants.kClimberRightRearInverted);
+    
+    m_climberLeftFrontMotor.setNeutralMode(ClimberConstants.kClimberNeutralMode);
+    m_climberLeftRearMotor.setNeutralMode(ClimberConstants.kClimberNeutralMode);
+    m_climberRightFrontMotor.setNeutralMode(ClimberConstants.kClimberNeutralMode);
+    m_climberRightRearMotor.setNeutralMode(ClimberConstants.kClimberNeutralMode);
+    
     m_climberLeftRearMotor.follow(m_climberLeftFrontMotor);
     m_climberRightRearMotor.follow(m_climberRightFrontMotor);
   }
