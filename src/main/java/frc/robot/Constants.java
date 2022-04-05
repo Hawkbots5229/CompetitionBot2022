@@ -164,6 +164,7 @@ public final class Constants {
     public static final double kIntakeHeight = 215;
     public static final boolean kIntakeMotorInverted = false;
     public static final boolean kIntakeHeightMotorInverted = false; 
+    public static final NeutralMode kIntakeHeightMotorNeutralMode = NeutralMode.Brake;
   }
 
   public static final class ElevatorConstants {
