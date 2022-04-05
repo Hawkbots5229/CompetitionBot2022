@@ -19,7 +19,7 @@ public class IntakeHeightSubsystem extends SubsystemBase {
   /** Creates a new intakeHeightSubsytem. */
   public IntakeHeightSubsystem() {
     m_intakeHeightMotor.setInverted(IntakeConstants.kIntakeHeightMotorInverted);
-    m_intakeHeightMotor.setNeutralMode(kIntakeHeightMotorNeutralMode);
+    m_intakeHeightMotor.setNeutralMode(IntakeConstants.kIntakeHeightMotorNeutralMode);
     resetIntakeEncoder();
   }
 
