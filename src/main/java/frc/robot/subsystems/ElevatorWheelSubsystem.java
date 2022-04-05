@@ -5,7 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ElevatorConstants;
@@ -13,8 +13,8 @@ import frc.robot.Constants.ElevatorConstants;
 public class ElevatorWheelSubsystem extends SubsystemBase {
   /** Creates a new ElevatorWheelSubsystem. */
 
-  private final TalonSRX m_wheelMotor = 
-    new TalonSRX(ElevatorConstants.kElevatorPort3);
+  private final WPI_TalonSRX m_wheelMotor = 
+    new WPI_TalonSRX(ElevatorConstants.kElevatorPort3);
 
   public ElevatorWheelSubsystem() {
     m_wheelMotor.setInverted(ElevatorConstants.kElevatorMotor3Inverted);

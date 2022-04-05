@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.IntakeConstants;
+import frc.robot.Constants.ClimberConstants;
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.commands.ShootBall;
 import frc.robot.Constants.OIConstants;
@@ -18,7 +19,9 @@ import frc.robot.commands.AutonomousDefault;
 import frc.robot.commands.ElevateBall;
 import frc.robot.commands.ElevateWheelSpin;
 import frc.robot.commands.IntakeBall;
+import frc.robot.commands.RobotClimb;
 import frc.robot.commands.AdjustIntakeHeight;
+import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.ElevatorWheelSubsystem;
@@ -44,6 +47,7 @@ public class RobotContainer {
   private final IntakeHeightSubsystem m_adjustIntake = new IntakeHeightSubsystem();
   private final ElevatorSubsystem m_robotElevate = new ElevatorSubsystem();
   private final ElevatorWheelSubsystem m_wheelSpin = new ElevatorWheelSubsystem();
+  private final ClimberSubsystem m_robotClimber = new ClimberSubsystem();
 
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
@@ -88,6 +92,14 @@ public class RobotContainer {
     new JoystickButton(m_driverController, Button.kRightBumper.value)
         .whenPressed(() -> m_robotDrive.setMaxOutput(0.5))
         .whenReleased(() -> m_robotDrive.setMaxOutput(1));
+
+    new JoystickButton(m_driverController, OIConstants.kUpDPad)
+        .whenPressed(new RobotClimb(m_robotClimber, ClimberConstants.kClimberMotorOutput))
+        .whenReleased(new RobotClimb(m_robotClimber, 0));
+
+    new JoystickButton(m_driverController, OIConstants.kDownDPad)
+        .whenPressed(new RobotClimb(m_robotClimber, -ClimberConstants.kClimberMotorOutput))
+        .whenReleased(new RobotClimb(m_robotClimber, 0));
 
     // extend intake when left bumber is released
     new JoystickButton(m_mechController, Button.kLeftBumper.value)

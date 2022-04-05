@@ -5,7 +5,6 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -16,8 +15,8 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final WPI_TalonSRX m_elevatorMotor1 = 
     new WPI_TalonSRX(ElevatorConstants.kElevatorPort1);
 
-  private final TalonSRX m_elevatorMotor2 = 
-    new TalonSRX(ElevatorConstants.kElevatorPort2);
+  private final WPI_TalonSRX m_elevatorMotor2 = 
+    new WPI_TalonSRX(ElevatorConstants.kElevatorPort2);
 
   /** Creates a new elevatorSubsystem. */
   public ElevatorSubsystem() {
