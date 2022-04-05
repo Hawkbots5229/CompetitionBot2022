@@ -191,5 +191,6 @@ public final class Constants {
     public static final boolean kClimberRightRearInverted = true;
     public static final double kClimberMotorOutputHigh = 0.55;
     public static final double kClimberMotorOutputLow = 0.2;
+    public static final NeutralMode kClimberNeutralMode = NeutralMode.Brake;
   }
 }
