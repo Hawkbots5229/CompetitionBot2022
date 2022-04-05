@@ -44,9 +44,14 @@ public class ClimberSubsystem extends SubsystemBase {
     m_climberLeftFrontMotor.set(ControlMode.PercentOutput, output);
     m_climberRightFrontMotor.set(ControlMode.PercentOutput, output);
   }
+  
+  public double getClimberOutput() {
+    return ((m_climberLeftFrontMotor.getMotorOutputPercent() + m_climberLeftRearMotor.getMotorOutputPercent() + m_climberRightFrontMotor.getMotorOutputPercent() + m_climberRightRearMotor.getMotorOutputPercent())/4)
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Climber Output", getClimberOutput());
   }
 }
