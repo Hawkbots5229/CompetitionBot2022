@@ -92,6 +92,14 @@ public class RobotContainer {
     new JoystickButton(m_driverController, Button.kRightBumper.value)
         .whenPressed(() -> m_robotDrive.setMaxOutput(0.5))
         .whenReleased(() -> m_robotDrive.setMaxOutput(1));
+    
+    new JoystickButton(m_driverController, Axis.kLeftTrigger.value)
+        .whenPressed(new RobotClimb(m_robotClimber, m_driverController.getLeftTriggerAxis()))
+        .whenReleased(new RobotClimb(m_robotClimber, 0));
+    
+    new JoystickButton(m_driverController, Axis.kRightTrigger.value)
+        .whenPressed(new RobotClimb(m_robotClimber, m_driverController.getRightTriggerAxis()*-1))
+        .whenReleased(new RobotClimb(m_robotClimber, 0));
 
     new POVButton(m_driverController, OIConstants.kUpDPad)
         .whenPressed(new RobotClimb(m_robotClimber, ClimberConstants.kClimberMotorOutputHigh))
