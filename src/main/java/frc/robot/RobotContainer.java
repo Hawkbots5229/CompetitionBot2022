@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Axis;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -92,7 +93,7 @@ public class RobotContainer {
     new JoystickButton(m_driverController, Button.kRightBumper.value)
         .whenPressed(() -> m_robotDrive.setMaxOutput(0.5))
         .whenReleased(() -> m_robotDrive.setMaxOutput(1));
-    
+    //System.out.println("LeftTrigger: " + m_driverController.getLeftTriggerAxis());
     new JoystickButton(m_driverController, Axis.kLeftTrigger.value)
         .whenPressed(new RobotClimb(m_robotClimber, m_driverController.getLeftTriggerAxis()))
         .whenReleased(new RobotClimb(m_robotClimber, 0));

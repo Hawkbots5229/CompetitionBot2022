@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.math.geometry.Translation2d;

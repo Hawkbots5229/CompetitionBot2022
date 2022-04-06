@@ -49,7 +49,6 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void setTargetVelocity(double Velocity) {
-    System.out.println("Target Velocity: " + Velocity);
     m_shooterMotorVelPIDController.setReference(
       Velocity, 
       CANSparkMax.ControlType.kVelocity, 

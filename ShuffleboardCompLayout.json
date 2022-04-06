@@ -60,7 +60,7 @@
               "imageHeight": -1
             }
           },
-          "4,0": {
+          "5,3": {
             "size": [
               1,
               1
@@ -91,6 +91,17 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Intake Hight",
               "_title": "Intake Hight"
+            }
+          },
+          "4,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Climber Output",
+              "_title": "Climber Output"
             }
           }
         }

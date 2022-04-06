@@ -5,8 +5,10 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClimberConstants;
 
@@ -44,9 +46,14 @@ public class ClimberSubsystem extends SubsystemBase {
     m_climberLeftFrontMotor.set(ControlMode.PercentOutput, output);
     m_climberRightFrontMotor.set(ControlMode.PercentOutput, output);
   }
+
+  public void setTargetVelocity(double velocity) {
+    m_climberLeftFrontMotor.set(TalonFXControlMode.Velocity, velocity);
+    m_climberLeftFrontMotor.set(TalonFXControlMode.Velocity, velocity);
+  }
   
   public double getClimberOutput() {
-    return ((m_climberLeftFrontMotor.getMotorOutputPercent() + m_climberLeftRearMotor.getMotorOutputPercent() + m_climberRightFrontMotor.getMotorOutputPercent() + m_climberRightRearMotor.getMotorOutputPercent())/4)
+    return ((m_climberLeftFrontMotor.getMotorOutputPercent() + m_climberLeftRearMotor.getMotorOutputPercent() + m_climberRightFrontMotor.getMotorOutputPercent() + m_climberRightRearMotor.getMotorOutputPercent())/4);
   }
 
   @Override
