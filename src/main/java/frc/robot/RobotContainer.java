@@ -95,12 +95,12 @@ public class RobotContainer {
         .whenReleased(() -> m_robotDrive.setMaxOutput(1));
     //System.out.println("LeftTrigger: " + m_driverController.getLeftTriggerAxis());
     new JoystickButton(m_driverController, Axis.kLeftTrigger.value)
-        .whenPressed(new RobotClimb(m_robotClimber, m_driverController.getLeftTriggerAxis()))
-        .whenReleased(new RobotClimb(m_robotClimber, 0));
+        .whenActive(new RobotClimb(m_robotClimber, m_driverController.getLeftTriggerAxis()*ClimberConstants.kMaxSpeed))
+        .whenInactive(new RobotClimb(m_robotClimber, 0));
     
     new JoystickButton(m_driverController, Axis.kRightTrigger.value)
-        .whenPressed(new RobotClimb(m_robotClimber, m_driverController.getRightTriggerAxis()*-1))
-        .whenReleased(new RobotClimb(m_robotClimber, 0));
+        .whenActive(new RobotClimb(m_robotClimber, m_driverController.getRightTriggerAxis()*-ClimberConstants.kMaxSpeed))
+        .whenInactive(new RobotClimb(m_robotClimber, 0));
 
     new POVButton(m_driverController, OIConstants.kUpDPad)
         .whenPressed(new RobotClimb(m_robotClimber, ClimberConstants.kClimberMotorOutputHigh))

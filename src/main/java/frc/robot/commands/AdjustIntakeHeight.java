@@ -30,22 +30,28 @@ public class AdjustIntakeHeight extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intakeHeight.setTargetOutput(intakeAdjustSpeed);
+    //m_intakeHeight.setTargetOutput(intakeAdjustSpeed);
+    m_intakeHeight.setTargetPosition(IntakeConstants.kIntakeHeight);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_intakeHeight.setTargetOutput(0); 
+    //m_intakeHeight.setTargetOutput(0); 
+    m_intakeHeight.setTargetPosition(0);
+
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    /*
     if(intakeAdjustSpeed<0) {
       return (m_intakeHeight.getIntakeHeight() <= 0);
     } else {
       return (m_intakeHeight.getIntakeHeight() >= IntakeConstants.kIntakeHeight);
     }
+    */
+    return false;
   }
 }
