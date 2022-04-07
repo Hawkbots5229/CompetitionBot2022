@@ -142,8 +142,8 @@ public final class Constants {
   public static final class ShooterConstants {
     public static final double kLowShooterOutput = 0.40; //0.4
     public static final double kHighShooterOutput = 0.70; //0.7
-    public static final int kLowShooterVelocity = 3600; // RPM
-    public static final int kHighShooterVelocity = 6400; // RPM
+    public static final int kLowShooterVelocity = 3000; // RPM
+    public static final int kHighShooterVelocity = 5000; // RPM
     public static final int kShooterPort = 11;
     public static final boolean kShooterMotorInverted = false;
     public static final double kClosedLoopRampRate = 0.7; // Time in seconds to go from 0 to full throttle.
@@ -193,10 +193,10 @@ public final class Constants {
      * Gains used in Positon Closed Loop, to be adjusted accordingly
      * Gains(kp, ki, kd, kf, izone, peak output);
      */
-    public static final double kF = 0.4;
-    public static final double kP = 0.4;
-    public static final double kI = 0.001;
-    public static final double kD = 5;
+    public static final double kF = 0.5;
+    public static final double kP = 0.2;
+    public static final double kI = 0; // 0.001
+    public static final double kD = 0; // 5
     
   }
 
@@ -207,8 +207,8 @@ public final class Constants {
     public static final int kElevatorPort3 = 10;
     public static final double kElevatorOutput = 1.0;
     //inverted: left true = up, right true = down, left false = down, right false = up
-    public static final boolean kElevatorMotor1Inverted = true;
-    public static final boolean kElevatorMotor2Inverted = false;
+    public static final boolean kElevatorMotor1Inverted = false;
+    public static final boolean kElevatorMotor2Inverted = true;
     public static final boolean kElevatorMotor3Inverted = true;
     public static final double kElevatorMotor3Output = 1;
   }
@@ -226,7 +226,7 @@ public final class Constants {
     public static final double kClimberMotorOutputLow = 0.2;
     public static final NeutralMode kClimberNeutralMode = NeutralMode.Brake;
     public static final double kGearRatio = 10.71*5; //ToughBox*Chain 
-    public static final double kMaxSpeed = 60; // RPM
+    
 
     /**
      * Which PID slot to pull gains from. Starting 2018, you can choose from
@@ -251,10 +251,12 @@ public final class Constants {
      * PID Gains may have to be adjusted based on the responsiveness of control loop.
      * kF: 1023 represents output value to Talon at 100%, 20660 represents Velocity units at 100% output
      */
-    public static final double kF = 0.5;
-    public static final double kP = 0.2;
-    public static final double kI = 0.001;
-    public static final double kD = 20;
+    public static final double kF = 0.01; //150
+    public static final double kP = 0.1; //0.1
+    public static final double kI = 0;
+    public static final double kD = 0;
+
+    public static final double kMaxSpeed = 1; // ArmRevPerMin 30
 
 
   }

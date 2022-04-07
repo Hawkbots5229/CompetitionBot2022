@@ -76,18 +76,17 @@ public class ClimberSubsystem extends SubsystemBase {
     m_climberLeftFrontMotor.set(ControlMode.PercentOutput, output);
   }
 
+  // velCCW and velCW are percent max velocity [-1:1]
   public void setTargetVelocity(double velCCW, double velCW) {
 
-    System.out.println("TarVel: " + (velCCW + velCW) * ClimberConstants.kMaxSpeed);
-    /**
-     * Convert 2000 RPM to units / 100ms.
-     * 2048 Units/Rev * 2000 RPM / 600 100ms/min in either direction:
-     * velocity setpoint is in units/100ms
-     */
-    double targetVelocity_RevPer100ms = ((velCCW + velCW) * ClimberConstants.kMaxSpeed * ClimberConstants.kGearRatio) / 600.0;
+    double armRevPerMin = (velCCW + velCW) * ClimberConstants.kMaxSpeed;
+    System.out.println("ArmRevPerMin: " + armRevPerMin);
     
-    System.out.println("TarVel_RevPer100ms: " + targetVelocity_RevPer100ms);
-    /* 2000 RPM in either direction */
+    //double targetVelocity_RevPer100ms = ((velCCW + velCW) * ClimberConstants.kMaxSpeed * ClimberConstants.kGearRatio) / 600.0;
+    double targetVelocity_RevPer100ms = armRevPerMin * ClimberConstants.kGearRatio * 600; //MotRevPer100MilliSec
+
+    //System.out.println("TarVel_RevPer100ms: " + targetVelocity_RevPer100ms);
+
     m_climberLeftFrontMotor.set(TalonFXControlMode.Velocity, targetVelocity_RevPer100ms);
   }
   
@@ -97,7 +96,8 @@ public class ClimberSubsystem extends SubsystemBase {
 
   public double getClimberVelocity() {
     
-    return ((m_climberLeftFrontMotor.getSelectedSensorVelocity() * 600) / ClimberConstants.kGearRatio);
+    // Convert MotRevPer100MilliSec to ArmRevPerMin
+    return ((m_climberLeftFrontMotor.getSelectedSensorVelocity() * 100) / (ClimberConstants.kGearRatio * 600));
   }
 
   @Override
