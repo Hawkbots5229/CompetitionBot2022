@@ -31,7 +31,8 @@ public class AdjustIntakeHeight extends CommandBase {
   @Override
   public void execute() {
     //m_intakeHeight.setTargetOutput(intakeAdjustSpeed);
-    m_intakeHeight.setTargetPosition(IntakeConstants.kIntakeHeight);
+    System.out.println("SetTargetPos: " + intakeAdjustSpeed);
+    m_intakeHeight.setTargetPosition(intakeAdjustSpeed);
   }
 
   // Called once the command ends or is interrupted.

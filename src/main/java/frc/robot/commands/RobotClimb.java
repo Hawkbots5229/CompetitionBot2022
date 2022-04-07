@@ -28,15 +28,15 @@ public class RobotClimb extends CommandBase {
   @Override
   public void execute() {
     System.out.println("ClimbSpeed: " + climbSpeed);
-    //m_robotClimber.setTargetOutput(climbSpeed);
-    m_robotClimber.setTargetVelocity(climbSpeed);
+    m_robotClimber.setTargetOutput(climbSpeed);
+    //m_robotClimber.setTargetVelocity(climbSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    //m_robotClimber.setTargetOutput(0);
-    m_robotClimber.setTargetVelocity(0);
+    m_robotClimber.setTargetOutput(0);
+    //m_robotClimber.setTargetVelocity(0);
   }
 
   // Returns true when the command should end.

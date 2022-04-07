@@ -80,6 +80,14 @@ public class RobotContainer {
                     m_driverController.getRightX(),
                     false),
             m_robotDrive));
+
+    m_robotClimber.setDefaultCommand(    
+        new RunCommand(
+            () ->
+                m_robotClimber.setTargetVelocity(
+                    m_driverController.getLeftTriggerAxis(),
+                    -m_driverController.getRightTriggerAxis()),
+            m_robotClimber));
   }
 
   /**
@@ -93,14 +101,6 @@ public class RobotContainer {
     new JoystickButton(m_driverController, Button.kRightBumper.value)
         .whenPressed(() -> m_robotDrive.setMaxOutput(0.5))
         .whenReleased(() -> m_robotDrive.setMaxOutput(1));
-    //System.out.println("LeftTrigger: " + m_driverController.getLeftTriggerAxis());
-    new JoystickButton(m_driverController, Axis.kLeftTrigger.value)
-        .whenActive(new RobotClimb(m_robotClimber, m_driverController.getLeftTriggerAxis()*ClimberConstants.kMaxSpeed))
-        .whenInactive(new RobotClimb(m_robotClimber, 0));
-    
-    new JoystickButton(m_driverController, Axis.kRightTrigger.value)
-        .whenActive(new RobotClimb(m_robotClimber, m_driverController.getRightTriggerAxis()*-ClimberConstants.kMaxSpeed))
-        .whenInactive(new RobotClimb(m_robotClimber, 0));
 
     new POVButton(m_driverController, OIConstants.kUpDPad)
         .whenPressed(new RobotClimb(m_robotClimber, ClimberConstants.kClimberMotorOutputHigh))
@@ -120,11 +120,11 @@ public class RobotContainer {
 
     // extend intake when left bumber is released
     new JoystickButton(m_mechController, Button.kLeftBumper.value)
-        .whenPressed(new AdjustIntakeHeight(m_adjustIntake, IntakeConstants.kAdjustIntakeOutput));
+        .whenPressed(new AdjustIntakeHeight(m_adjustIntake, IntakeConstants.kIntakeHeight));
     
     // intake intake when right bumper is released
     new JoystickButton(m_mechController, Button.kRightBumper.value)
-        .whenPressed(new AdjustIntakeHeight(m_adjustIntake, -IntakeConstants.kAdjustIntakeOutput));
+        .whenPressed(new AdjustIntakeHeight(m_adjustIntake, 0));
 
     //Dump when x is pressed
     new JoystickButton(m_mechController, Button.kX.value)

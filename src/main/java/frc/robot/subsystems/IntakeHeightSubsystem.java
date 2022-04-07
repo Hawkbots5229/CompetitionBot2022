@@ -39,15 +39,15 @@ public class IntakeHeightSubsystem extends SubsystemBase {
 		 * Grab the 360 degree position of the MagEncoder's absolute
 		 * position, and intitally set the relative sensor to match.
 		 */
-		int absolutePosition = m_intakeHeightMotor.getSensorCollection().getPulseWidthPosition();
+		//int absolutePosition = m_intakeHeightMotor.getSensorCollection().getPulseWidthPosition();
 
 		/* Mask out overflows, keep bottom 12 bits */
-		absolutePosition &= 0xFFF;
-		if (IntakeConstants.kSensorPhase) { absolutePosition *= -1; }
-		if (IntakeConstants.kIntakeHeightMotorInverted) { absolutePosition *= -1; }
+		//absolutePosition &= 0xFFF;
+		//if (IntakeConstants.kSensorPhase) { absolutePosition *= -1; }
+		//if (IntakeConstants.kIntakeHeightMotorInverted) { absolutePosition *= -1; }
 		
 		/* Set the quadrature (relative) sensor to match absolute */
-		m_intakeHeightMotor.setSelectedSensorPosition(absolutePosition, IntakeConstants.kPIDLoopIdx, IntakeConstants.kTimeoutMs);
+		m_intakeHeightMotor.setSelectedSensorPosition(0, IntakeConstants.kPIDLoopIdx, IntakeConstants.kTimeoutMs);
   }
 
   public void setTargetOutput(double output) {

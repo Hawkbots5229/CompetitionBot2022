@@ -162,7 +162,7 @@ public final class Constants {
     public static final int kIntake2Port = 15;
     public static final double kIntakeOutput = 0.75;
     public static final double kAdjustIntakeOutput = 0.5;
-    public static final double kIntakeHeight = 215;
+    public static final double kIntakeHeight = 500;
     public static final boolean kIntakeMotorInverted = false;
     public static final boolean kIntakeHeightMotorInverted = false; 
     public static final NeutralMode kIntakeHeightMotorNeutralMode = NeutralMode.Brake;
@@ -193,10 +193,10 @@ public final class Constants {
      * Gains used in Positon Closed Loop, to be adjusted accordingly
      * Gains(kp, ki, kd, kf, izone, peak output);
      */
-    public static final double kF = 1;
-    public static final double kP = 0;
-    public static final double kI = 0;
-    public static final double kD = 0;
+    public static final double kF = 0.4;
+    public static final double kP = 0.4;
+    public static final double kI = 0.001;
+    public static final double kD = 5;
     
   }
 
@@ -225,8 +225,8 @@ public final class Constants {
     public static final double kClimberMotorOutputHigh = 0.55;
     public static final double kClimberMotorOutputLow = 0.2;
     public static final NeutralMode kClimberNeutralMode = NeutralMode.Brake;
-    public static final double kGearRatio = 10.71*5;
-    public static final double kMaxSpeed = 0.2; // unitsPer100ms
+    public static final double kGearRatio = 10.71*5; //ToughBox*Chain 
+    public static final double kMaxSpeed = 60; // RPM
 
     /**
      * Which PID slot to pull gains from. Starting 2018, you can choose from
@@ -251,10 +251,10 @@ public final class Constants {
      * PID Gains may have to be adjusted based on the responsiveness of control loop.
      * kF: 1023 represents output value to Talon at 100%, 20660 represents Velocity units at 100% output
      */
-    public static final double kF = 1023.0/20660.0;
-    public static final double kP = 0.1;
+    public static final double kF = 0.5;
+    public static final double kP = 0.2;
     public static final double kI = 0.001;
-    public static final double kD = 5;
+    public static final double kD = 20;
 
 
   }

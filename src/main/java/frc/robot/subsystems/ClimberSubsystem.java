@@ -76,24 +76,35 @@ public class ClimberSubsystem extends SubsystemBase {
     m_climberLeftFrontMotor.set(ControlMode.PercentOutput, output);
   }
 
-  public void setTargetVelocity(double velocity) {
+  public void setTargetVelocity(double velCCW, double velCW) {
+
+    System.out.println("TarVel: " + (velCCW + velCW) * ClimberConstants.kMaxSpeed);
     /**
      * Convert 2000 RPM to units / 100ms.
      * 2048 Units/Rev * 2000 RPM / 600 100ms/min in either direction:
      * velocity setpoint is in units/100ms
      */
-    double targetVelocity_UnitsPer100ms = velocity * ClimberConstants.kGearRatio * 2000.0 * 2048.0 / 600.0;
+    double targetVelocity_RevPer100ms = ((velCCW + velCW) * ClimberConstants.kMaxSpeed * ClimberConstants.kGearRatio) / 600.0;
+    
+    System.out.println("TarVel_RevPer100ms: " + targetVelocity_RevPer100ms);
     /* 2000 RPM in either direction */
-    m_climberLeftFrontMotor.set(TalonFXControlMode.Velocity, targetVelocity_UnitsPer100ms);
+    m_climberLeftFrontMotor.set(TalonFXControlMode.Velocity, targetVelocity_RevPer100ms);
   }
   
   public double getClimberOutput() {
     return ((m_climberLeftFrontMotor.getMotorOutputPercent() + m_climberLeftRearMotor.getMotorOutputPercent() + m_climberRightFrontMotor.getMotorOutputPercent() + m_climberRightRearMotor.getMotorOutputPercent())/4);
   }
 
+  public double getClimberVelocity() {
+    
+    return ((m_climberLeftFrontMotor.getSelectedSensorVelocity() * 600) / ClimberConstants.kGearRatio);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Climber Output", getClimberOutput());
+    SmartDashboard.putNumber("Climber Velocity", getClimberVelocity());
+
   }
 }
