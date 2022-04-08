@@ -39,8 +39,8 @@ public class AutonomousShootBall extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_ballShooter.setTargetOutput(shooterSpeed);
-    if(tmr.get() > 1){
+    m_ballShooter.setTargetVelocity(shooterSpeed);
+    if(m_ballShooter.getShooterVelocity() > shooterSpeed){
       m_ballElevate.setTargetOutput(elevateSpeed);
     } 
   }

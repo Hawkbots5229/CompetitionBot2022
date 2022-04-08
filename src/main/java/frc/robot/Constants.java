@@ -142,18 +142,18 @@ public final class Constants {
   public static final class ShooterConstants {
     public static final double kLowShooterOutput = 0.40; //0.4
     public static final double kHighShooterOutput = 0.70; //0.7
-    public static final int kLowShooterVelocity = 3000; // RPM
-    public static final int kHighShooterVelocity = 5000; // RPM
+    public static final int kLowShooterVelocity = 2200; // RPM
+    public static final int kHighShooterVelocity = 5200; // RPM
     public static final int kShooterPort = 11;
     public static final boolean kShooterMotorInverted = false;
-    public static final double kClosedLoopRampRate = 0.7; // Time in seconds to go from 0 to full throttle.
+    public static final double kClosedLoopRampRate = 0.5; // Time in seconds to go from 0 to full throttle.
     public static final IdleMode kIdleMode = IdleMode.kBrake;
     public static final int kCurrentLimit = 40; // Amps
 
     public static final int kVelPidSlot = 0;
-    public static final double kFVel = 0.000114;
-    public static final double kPVel = 0;
-    public static final double kDVel = 0;
+    public static final double kFVel = 0.000115;
+    public static final double kPVel = 0.00011;
+    public static final double kDVel = 10;
     public static final double kIVel = 0;
   }
 
@@ -252,11 +252,11 @@ public final class Constants {
      * kF: 1023 represents output value to Talon at 100%, 20660 represents Velocity units at 100% output
      */
     public static final double kF = 0.01; //150
-    public static final double kP = 0.1; //0.1
+    public static final double kP = 0.025; //0.1
     public static final double kI = 0;
     public static final double kD = 0;
 
-    public static final double kMaxSpeed = 1; // ArmRevPerMin 30
+    public static final double kMaxSpeed = 1.0; // ArmRevPerMin 30
 
 
   }

@@ -23,7 +23,7 @@ public class AutonomousDefault extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new AutonomousShootBall(m_robotShoot, ShooterConstants.kLowShooterOutput - 0.1, m_robotElevate, ElevatorConstants.kElevatorOutput + 0.15),
+      new AutonomousShootBall(m_robotShoot, ShooterConstants.kLowShooterVelocity, m_robotElevate, ElevatorConstants.kElevatorOutput + 0.15),
       //new AutonomousIntake(m_ballIntake, IntakeConstants.kIntakeOutput),
       //new AutonomousShootBall(m_robotShoot, ShooterConstants.kHighShooterOutput, m_robotElevate, ElevatorConstants.kElevatorOutput),
       new AutonomousDistance(m_robotDrive, -0.2, 0, 2));

@@ -33,7 +33,7 @@ public class ShooterSubsystem extends SubsystemBase {
     m_shooterMotor.setIdleMode(ShooterConstants.kIdleMode);
     m_shooterMotor.setInverted(ShooterConstants.kShooterMotorInverted);
     m_shooterMotor.setClosedLoopRampRate(ShooterConstants.kClosedLoopRampRate);
-    m_shooterMotor.setSmartCurrentLimit(40, 5, ShooterConstants.kHighShooterVelocity);
+    //m_shooterMotor.setSmartCurrentLimit(40, 5, ShooterConstants.kHighShooterVelocity);
     m_shooterMotor.setSecondaryCurrentLimit(50);
 
     m_shooterMotorVelPIDController.setFF(ShooterConstants.kFVel, ShooterConstants.kVelPidSlot); 
@@ -53,6 +53,10 @@ public class ShooterSubsystem extends SubsystemBase {
       Velocity, 
       CANSparkMax.ControlType.kVelocity, 
       ShooterConstants.kVelPidSlot);
+  }
+
+  public double getShooterVelocity() {
+    return m_shooterMotorEncoder.getVelocity();
   }
 
   public void stopMotor(){

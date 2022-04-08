@@ -19,52 +19,42 @@ import frc.robot.subsystems.ShooterSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class Autonomous4Ball extends SequentialCommandGroup {
+public class Autonomous3Ball extends SequentialCommandGroup {
 
   /** Creates a new AutonomousDefault. */
-  public Autonomous4Ball(DriveSubsystem m_robotDrive, ShooterSubsystem m_robotShoot, ElevatorSubsystem m_robotElevate, IntakeSubsystem m_robotIntake, ElevatorWheelSubsystem m_robotWheelElevate, IntakeHeightSubsystem m_adjustIntake) {
+  public Autonomous3Ball(DriveSubsystem m_robotDrive, ShooterSubsystem m_robotShoot, ElevatorSubsystem m_robotElevate, IntakeSubsystem m_robotIntake, ElevatorWheelSubsystem m_robotWheelElevate, IntakeHeightSubsystem m_adjustIntake) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       // extends intake
       new AdjustIntakeHeight(m_adjustIntake, IntakeConstants.kAdjustIntakeOutput),
-      // turns to line up with second ball
-      new AutonomousRotate(m_robotDrive, 0.2, 70),
-      // drives to line up with second ball
-      new AutonomousDistance(m_robotDrive, 0.2, 0, 0.3),
-      // turns toward second ball
-      new AutonomousRotate(m_robotDrive, 0.2, -90),
-      // turns on intake and elevator wheel
+      // turns on intake
       new AutonomousIntake(m_robotIntake, IntakeConstants.kIntakeOutput, m_robotWheelElevate, ElevatorConstants.kElevatorMotor3Output),
       // drives to second ball and intakes it
-      new AutonomousDistance(m_robotDrive, 0.2, 0, 0.75),
+      new AutonomousDistance(m_robotDrive, 0.2, 0, 1),
       // turns 10 degrees to aim at target
       new AutonomousRotate(m_robotDrive, 0.2, 10),
-      // powers wheel for 1 second and then shoots balls 1 and 2 at high target for 2 seconds
+      // powers wheel until at target speed and then shoots balls 1 and 2 at high target for 2 seconds
       new AutonomousShootBall(m_robotShoot, ShooterConstants.kHighShooterVelocity, m_robotElevate, ElevatorConstants.kElevatorOutput + 0.1), 
       // turns off intake and elevator wheel
       new AutonomousIntake(m_robotIntake, 0, m_robotWheelElevate, 0),
+      // intakes intake
+      new AdjustIntakeHeight(m_adjustIntake, -IntakeConstants.kAdjustIntakeOutput),
       // turns to line up with the 3rd ball
-      new AutonomousRotate(m_robotDrive, 0.2, 80),
-      // drives to line up with third ball
-      new AutonomousDistance(m_robotDrive, 0.2, 0, 1.5), 
-      // turns towards third ball
-      new AutonomousRotate(m_robotDrive, 0.2, -90),
-      // turns on intake and elevator wheel
+      new AutonomousRotate(m_robotDrive, 0.2, 120),
+      // extends intake
+      new AdjustIntakeHeight(m_adjustIntake, IntakeConstants.kAdjustIntakeOutput),
+      // turns on intake
       new AutonomousIntake(m_robotIntake, IntakeConstants.kIntakeOutput, m_robotWheelElevate, ElevatorConstants.kElevatorMotor3Output),
-      // drives to third ball and intakes it
-      new AutonomousDistance(m_robotDrive, 0.2, 0, 4),
-      // adds delay for 2 seconds for human player to load fourth ball
-      new AutonomousDelay(AutoConstants.kAutonDelay), 
-      // turns towards shooting spot
-      new AutonomousRotate(m_robotDrive, 0.2, 30),
-      // drives back to shooting spot
-      new AutonomousDistance(m_robotDrive, 0.2, 0, -4.3),
-      // aims at high target
-      new AutonomousRotate(m_robotDrive, 0.2, 20),
-      // powers wheel for 1 second and then shoots ball 3 and 4 at high target for 2 seconds
+      // drives to third ball
+      new AutonomousDistance(m_robotDrive, 0.2, 0, 2.0), 
+      // turns towards target
+      new AutonomousRotate(m_robotDrive, 0.2, -70),
+      // powers wheel to speed and then shoots ball 3 at high target for 2 seconds
       new AutonomousShootBall(m_robotShoot, ShooterConstants.kHighShooterVelocity, m_robotElevate, ElevatorConstants.kElevatorOutput + 0.1),
       // turns off intake and elevator wheel
-      new AutonomousIntake(m_robotIntake, 0, m_robotWheelElevate, 0));
+      new AutonomousIntake(m_robotIntake, 0, m_robotWheelElevate, 0),
+      // intakes intake
+      new AdjustIntakeHeight(m_adjustIntake, -IntakeConstants.kAdjustIntakeOutput));
   }
 }

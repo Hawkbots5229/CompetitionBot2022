@@ -80,7 +80,7 @@ public class ClimberSubsystem extends SubsystemBase {
   public void setTargetVelocity(double velCCW, double velCW) {
 
     double armRevPerMin = (velCCW + velCW) * ClimberConstants.kMaxSpeed;
-    System.out.println("ArmRevPerMin: " + armRevPerMin);
+    //System.out.println("ArmRevPerMin: " + armRevPerMin);
     
     //double targetVelocity_RevPer100ms = ((velCCW + velCW) * ClimberConstants.kMaxSpeed * ClimberConstants.kGearRatio) / 600.0;
     double targetVelocity_RevPer100ms = armRevPerMin * ClimberConstants.kGearRatio * 600; //MotRevPer100MilliSec
