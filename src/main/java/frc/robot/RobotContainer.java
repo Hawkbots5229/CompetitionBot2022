@@ -22,6 +22,9 @@ import frc.robot.commands.ElevateWheelSpin;
 import frc.robot.commands.IntakeBall;
 import frc.robot.commands.RobotClimb;
 import frc.robot.commands.AdjustIntakeHeight;
+import frc.robot.commands.Autonomous2Ball;
+import frc.robot.commands.Autonomous3Ball;
+import frc.robot.commands.Autonomous4Ball;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -102,7 +105,7 @@ public class RobotContainer {
         .whenPressed(() -> m_robotDrive.setMaxOutput(0.5))
         .whenReleased(() -> m_robotDrive.setMaxOutput(1));
 
-    new POVButton(m_driverController, OIConstants.kUpDPad)
+    /* new POVButton(m_driverController, OIConstants.kUpDPad)
         .whenPressed(new RobotClimb(m_robotClimber, ClimberConstants.kClimberMotorOutputHigh))
         .whenReleased(new RobotClimb(m_robotClimber, 0));
 
@@ -117,6 +120,7 @@ public class RobotContainer {
     new POVButton(m_driverController, OIConstants.kRightDPad)
         .whenPressed(new RobotClimb(m_robotClimber, -ClimberConstants.kClimberMotorOutputLow))
         .whenReleased(new RobotClimb(m_robotClimber, 0));
+    */
 
     // extend intake when left bumber is released
     new JoystickButton(m_mechController, Button.kLeftBumper.value)
@@ -166,6 +170,9 @@ public class RobotContainer {
 
     // Setup SmartDashboard options
     m_chooser.setDefaultOption("Basic Auto", new AutonomousDefault(m_robotDrive, m_robotShooter, m_robotElevate));
+    m_chooser.addOption("2 Ball", new Autonomous2Ball(m_robotDrive,  m_robotShooter,  m_robotElevate,  m_robotIntake,  m_wheelSpin, m_adjustIntake));
+    m_chooser.addOption("3 Ball", new Autonomous3Ball(m_robotDrive,  m_robotShooter,  m_robotElevate,  m_robotIntake,  m_wheelSpin, m_adjustIntake));
+    m_chooser.addOption("4 Ball", new Autonomous4Ball(m_robotDrive,  m_robotShooter,  m_robotElevate,  m_robotIntake,  m_wheelSpin, m_adjustIntake));
     SmartDashboard.putData(m_chooser);
   }
 

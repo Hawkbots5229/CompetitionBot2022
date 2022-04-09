@@ -31,13 +31,13 @@ public class Autonomous4Ball extends SequentialCommandGroup {
       // turns to line up with second ball
       new AutonomousRotate(m_robotDrive, 0.2, 70),
       // drives to line up with second ball
-      new AutonomousDistance(m_robotDrive, 0.2, 0, 0.3),
+      new AutonomousDistance(m_robotDrive, 0.2, 0, 0.2),
       // turns toward second ball
       new AutonomousRotate(m_robotDrive, 0.2, -90),
       // turns on intake and elevator wheel
       new AutonomousIntake(m_robotIntake, IntakeConstants.kIntakeOutput, m_robotWheelElevate, ElevatorConstants.kElevatorMotor3Output),
       // drives to second ball and intakes it
-      new AutonomousDistance(m_robotDrive, 0.2, 0, 0.75),
+      new AutonomousDistance(m_robotDrive, 0.2, 0, 1.1),
       // turns 10 degrees to aim at target
       new AutonomousRotate(m_robotDrive, 0.2, 10),
       // powers wheel for 1 second and then shoots balls 1 and 2 at high target for 2 seconds
@@ -47,19 +47,19 @@ public class Autonomous4Ball extends SequentialCommandGroup {
       // turns to line up with the 3rd ball
       new AutonomousRotate(m_robotDrive, 0.2, 80),
       // drives to line up with third ball
-      new AutonomousDistance(m_robotDrive, 0.2, 0, 1.5), 
+      new AutonomousDistance(m_robotDrive, 0.2, 0, 2.08), 
       // turns towards third ball
       new AutonomousRotate(m_robotDrive, 0.2, -90),
       // turns on intake and elevator wheel
       new AutonomousIntake(m_robotIntake, IntakeConstants.kIntakeOutput, m_robotWheelElevate, ElevatorConstants.kElevatorMotor3Output),
       // drives to third ball and intakes it
-      new AutonomousDistance(m_robotDrive, 0.2, 0, 4),
+      new AutonomousDistance(m_robotDrive, 0.2, 0, 3.55),
       // adds delay for 2 seconds for human player to load fourth ball
       new AutonomousDelay(AutoConstants.kAutonDelay), 
       // turns towards shooting spot
       new AutonomousRotate(m_robotDrive, 0.2, 30),
       // drives back to shooting spot
-      new AutonomousDistance(m_robotDrive, 0.2, 0, -4.3),
+      new AutonomousDistance(m_robotDrive, 0.2, 0, -4.1),
       // aims at high target
       new AutonomousRotate(m_robotDrive, 0.2, 20),
       // powers wheel for 1 second and then shoots ball 3 and 4 at high target for 2 seconds
