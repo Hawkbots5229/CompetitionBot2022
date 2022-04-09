@@ -23,7 +23,7 @@ public class Autonomous2Ball extends SequentialCommandGroup {
 
   /** Creates a new AutonomousDefault. */
   public Autonomous2Ball(DriveSubsystem m_robotDrive, ShooterSubsystem m_robotShoot, ElevatorSubsystem m_robotElevate, IntakeSubsystem m_robotIntake, ElevatorWheelSubsystem m_robotWheelElevate, IntakeHeightSubsystem m_adjustIntake) {
-    // Add your commands in the addCommands() call, e.g.
+    // your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       // extends intake
