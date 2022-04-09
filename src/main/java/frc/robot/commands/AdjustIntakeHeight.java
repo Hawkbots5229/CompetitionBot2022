@@ -39,7 +39,7 @@ public class AdjustIntakeHeight extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     //m_intakeHeight.setTargetOutput(0); 
-    m_intakeHeight.setTargetPosition(0);
+    m_intakeHeight.setTargetPosition(intakeAdjustSpeed);
 
   }
 
@@ -53,6 +53,6 @@ public class AdjustIntakeHeight extends CommandBase {
       return (m_intakeHeight.getIntakeHeight() >= IntakeConstants.kIntakeHeight);
     }
     */
-    return false;
+    return true;
   }
 }

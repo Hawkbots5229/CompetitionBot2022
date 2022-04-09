@@ -27,7 +27,7 @@ public class Autonomous4Ball extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       // extends intake
-      new AdjustIntakeHeight(m_adjustIntake, IntakeConstants.kAdjustIntakeOutput),
+      new AdjustIntakeHeight(m_adjustIntake, IntakeConstants.kIntakeHeight),
       // turns to line up with second ball
       new AutonomousRotate(m_robotDrive, 0.2, 70),
       // drives to line up with second ball
@@ -65,6 +65,8 @@ public class Autonomous4Ball extends SequentialCommandGroup {
       // powers wheel for 1 second and then shoots ball 3 and 4 at high target for 2 seconds
       new AutonomousShootBall(m_robotShoot, ShooterConstants.kHighShooterVelocity, m_robotElevate, ElevatorConstants.kElevatorOutput + 0.1),
       // turns off intake and elevator wheel
-      new AutonomousIntake(m_robotIntake, 0, m_robotWheelElevate, 0));
+      new AutonomousIntake(m_robotIntake, 0, m_robotWheelElevate, 0),
+      // intaks intake height
+      new AdjustIntakeHeight(m_adjustIntake, 0));
   }
 }

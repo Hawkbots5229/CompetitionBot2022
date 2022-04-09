@@ -122,11 +122,11 @@ public class RobotContainer {
         .whenReleased(new RobotClimb(m_robotClimber, 0));
     */
 
-    // extend intake when left bumber is released
+    // extend intake when left bumber is pressed
     new JoystickButton(m_mechController, Button.kLeftBumper.value)
         .whenPressed(new AdjustIntakeHeight(m_adjustIntake, IntakeConstants.kIntakeHeight));
     
-    // intake intake when right bumper is released
+    // intake intake when right bumper is pressed
     new JoystickButton(m_mechController, Button.kRightBumper.value)
         .whenPressed(new AdjustIntakeHeight(m_adjustIntake, 0));
 

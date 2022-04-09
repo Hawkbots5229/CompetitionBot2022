@@ -27,7 +27,7 @@ public class Autonomous3Ball extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       // extends intake
-      new AdjustIntakeHeight(m_adjustIntake, IntakeConstants.kAdjustIntakeOutput),
+      new AdjustIntakeHeight(m_adjustIntake, IntakeConstants.kIntakeHeight),
       // turns on intake
       new AutonomousIntake(m_robotIntake, IntakeConstants.kIntakeOutput, m_robotWheelElevate, ElevatorConstants.kElevatorMotor3Output),
       // drives to second ball and intakes it
@@ -39,7 +39,7 @@ public class Autonomous3Ball extends SequentialCommandGroup {
       // turns off intake and elevator wheel
       new AutonomousIntake(m_robotIntake, 0, m_robotWheelElevate, 0),
       // intakes intake
-      new AdjustIntakeHeight(m_adjustIntake, -IntakeConstants.kAdjustIntakeOutput),
+      new AdjustIntakeHeight(m_adjustIntake, 0),
       // turns to line up with the 3rd ball
       new AutonomousRotate(m_robotDrive, 0.2, 120),
       // extends intake
@@ -55,6 +55,6 @@ public class Autonomous3Ball extends SequentialCommandGroup {
       // turns off intake and elevator wheel
       new AutonomousIntake(m_robotIntake, 0, m_robotWheelElevate, 0),
       // intakes intake
-      new AdjustIntakeHeight(m_adjustIntake, -IntakeConstants.kAdjustIntakeOutput));
+      new AdjustIntakeHeight(m_adjustIntake, 0));
   }
 }
