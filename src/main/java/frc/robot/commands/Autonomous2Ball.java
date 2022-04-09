@@ -31,7 +31,7 @@ public class Autonomous2Ball extends SequentialCommandGroup {
       // turns on intake
       new AutonomousIntake(m_robotIntake, IntakeConstants.kIntakeOutput, m_robotWheelElevate, ElevatorConstants.kElevatorMotor3Output),
       // drives to second ball and intakes it
-      new AutonomousDistance(m_robotDrive, 0.2, 0, 1.1),
+      new AutonomousDistance(m_robotDrive, 0.2, 0, 1.0),
       // turns -10 degrees to aim at target
       new AutonomousRotate(m_robotDrive, 0.2, -10),
       // powers wheel until at target speed and then shoots balls 1 and 2 at high target for 2 seconds
