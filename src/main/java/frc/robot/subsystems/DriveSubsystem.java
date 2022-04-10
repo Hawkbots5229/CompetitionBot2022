@@ -77,6 +77,7 @@ public class DriveSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Drive Velocity", getRobotVelocity());
+    SmartDashboard.putNumber("Robot Angle", getAngle());
 }
 
   private void initMotors() {

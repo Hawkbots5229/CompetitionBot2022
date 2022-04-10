@@ -104,7 +104,7 @@
               "_title": "Climber Output"
             }
           },
-          "4,1": {
+          "6,3": {
             "size": [
               1,
               1
@@ -113,6 +113,17 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Climber Velocity",
               "_title": "Climber Velocity"
+            }
+          },
+          "4,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Robot Angle",
+              "_title": "Robot Angle"
             }
           }
         }
@@ -256,9 +267,9 @@
     }
   ],
   "windowGeometry": {
-    "x": 0.0,
-    "y": 0.0,
-    "width": 1366.0,
-    "height": 728.0
+    "x": -8.0,
+    "y": -8.0,
+    "width": 1382.0,
+    "height": 744.0
   }
 }

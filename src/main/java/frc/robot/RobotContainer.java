@@ -88,8 +88,8 @@ public class RobotContainer {
         new RunCommand(
             () ->
                 m_robotClimber.setTargetVelocity(
-                    m_driverController.getLeftTriggerAxis(),
-                    -m_driverController.getRightTriggerAxis()),
+                    m_mechController.getLeftTriggerAxis(),
+                    -m_mechController.getRightTriggerAxis()),
             m_robotClimber));
   }
 
@@ -169,7 +169,7 @@ public class RobotContainer {
 
 
     // Setup SmartDashboard options
-    m_chooser.setDefaultOption("Basic Auto", new AutonomousDefault(m_robotDrive, m_robotShooter, m_robotElevate));
+    m_chooser.setDefaultOption("Basic Auto", new AutonomousDefault(m_robotDrive, m_robotShooter, m_robotElevate, m_wheelSpin));
     m_chooser.addOption("2 Ball", new Autonomous2Ball(m_robotDrive,  m_robotShooter,  m_robotElevate,  m_robotIntake,  m_wheelSpin, m_adjustIntake));
     m_chooser.addOption("3 Ball", new Autonomous3Ball(m_robotDrive,  m_robotShooter,  m_robotElevate,  m_robotIntake,  m_wheelSpin, m_adjustIntake));
     m_chooser.addOption("4 Ball", new Autonomous4Ball(m_robotDrive,  m_robotShooter,  m_robotElevate,  m_robotIntake,  m_wheelSpin, m_adjustIntake));
