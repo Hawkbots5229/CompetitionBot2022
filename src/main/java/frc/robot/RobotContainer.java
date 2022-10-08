@@ -155,16 +155,16 @@ public class RobotContainer {
     //elevator up
     new POVButton(m_mechController, OIConstants.kUpDPad)
         .whenPressed(new ElevateBall(m_robotElevate, ElevatorConstants.kElevatorOutput))
-        .whenReleased(new ElevateBall(m_robotElevate, 0))
-        .whenPressed(new ElevateWheelSpin(m_wheelSpin, ElevatorConstants.kElevatorMotor3Output))
-        .whenReleased(new ElevateWheelSpin(m_wheelSpin, 0));
+        .whenReleased(new ElevateBall(m_robotElevate, 0));
+        //.whenPressed(new ElevateWheelSpin(m_wheelSpin, ElevatorConstants.kElevatorMotor3Output))
+        //.whenReleased(new ElevateWheelSpin(m_wheelSpin, 0));
 
     //elevator down
     new POVButton(m_mechController, OIConstants.kDownDPad)
         .whenPressed(new ElevateBall(m_robotElevate, -ElevatorConstants.kElevatorOutput))
-        .whenReleased(new ElevateBall(m_robotElevate, 0))
-        .whenPressed(new ElevateWheelSpin(m_wheelSpin, -ElevatorConstants.kElevatorMotor3Output))
-        .whenReleased(new ElevateWheelSpin(m_wheelSpin, 0));
+        .whenReleased(new ElevateBall(m_robotElevate, 0));
+        //.whenPressed(new ElevateWheelSpin(m_wheelSpin, -ElevatorConstants.kElevatorMotor3Output))
+        //.whenReleased(new ElevateWheelSpin(m_wheelSpin, 0));
 
 
 

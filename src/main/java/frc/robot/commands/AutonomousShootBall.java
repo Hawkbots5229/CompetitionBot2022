@@ -41,7 +41,7 @@ public class AutonomousShootBall extends CommandBase {
   public void execute() {
     m_ballShooter.setTargetVelocity(shooterSpeed);
     if(m_ballShooter.getShooterVelocity() > shooterSpeed){
-      m_ballElevate.setTargetOutput(elevateSpeed);
+      m_ballElevate.setTargetOutput(-elevateSpeed);
     } 
   }
 

@@ -15,18 +15,18 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final WPI_TalonSRX m_elevatorMotor1 = 
     new WPI_TalonSRX(ElevatorConstants.kElevatorPort1);
 
-  private final WPI_TalonSRX m_elevatorMotor2 = 
-    new WPI_TalonSRX(ElevatorConstants.kElevatorPort2);
+  //private final WPI_TalonSRX m_elevatorMotor2 = 
+    //new WPI_TalonSRX(ElevatorConstants.kElevatorPort2);
 
   /** Creates a new elevatorSubsystem. */
   public ElevatorSubsystem() {
     m_elevatorMotor1.setInverted(ElevatorConstants.kElevatorMotor1Inverted);
-    m_elevatorMotor2.setInverted(ElevatorConstants.kElevatorMotor2Inverted);
+    //m_elevatorMotor2.setInverted(ElevatorConstants.kElevatorMotor2Inverted);
   }
 
   public void setTargetOutput(double output) {
     m_elevatorMotor1.set(ControlMode.PercentOutput, output);
-    m_elevatorMotor2.set(ControlMode.PercentOutput, output);
+    //m_elevatorMotor2.set(ControlMode.PercentOutput, output);
   }
 
   @Override

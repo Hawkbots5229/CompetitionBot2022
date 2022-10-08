@@ -113,8 +113,8 @@ public final class Constants {
   public static final class OIConstants {
     public static final int kDriverControllerPort = 0;
     public static final int kMechControllerPort = 1;
-    public static final int kUpDPad = 0;
-    public static final int kDownDPad = 180;
+    public static final int kUpDPad = 180;
+    public static final int kDownDPad = 0;
     public static final int kLeftDPad = 270;
     public static final int kRightDPad = 90;
   }
@@ -142,8 +142,8 @@ public final class Constants {
   public static final class ShooterConstants {
     public static final double kLowShooterOutput = 0.40; //0.4
     public static final double kHighShooterOutput = 0.70; //0.7
-    public static final int kLowShooterVelocity = 2200; // RPM
-    public static final int kHighShooterVelocity = 6600; // RPM
+    public static final int kLowShooterVelocity = 4000; // RPM
+    public static final int kHighShooterVelocity = 7600; // RPM
     public static final int kShooterPort = 11;
     public static final boolean kShooterMotorInverted = false;
     public static final double kClosedLoopRampRate = 0.5; // Time in seconds to go from 0 to full throttle.
@@ -202,12 +202,12 @@ public final class Constants {
 
   public static final class ElevatorConstants {
     //1 = left motor, 2 = right motor
-    public static final int kElevatorPort1 = 14;
-    public static final int kElevatorPort2 = 13;
-    public static final int kElevatorPort3 = 10;
+    public static final int kElevatorPort1 = 10;
+    public static final int kElevatorPort2 = 14;
+    public static final int kElevatorPort3 = 13;
     public static final double kElevatorOutput = 1.0;
     //inverted: left true = up, right true = down, left false = down, right false = up
-    public static final boolean kElevatorMotor1Inverted = false;
+    public static final boolean kElevatorMotor1Inverted = true;
     public static final boolean kElevatorMotor2Inverted = true;
     public static final boolean kElevatorMotor3Inverted = true;
     public static final double kElevatorMotor3Output = 1;
@@ -251,12 +251,12 @@ public final class Constants {
      * PID Gains may have to be adjusted based on the responsiveness of control loop.
      * kF: 1023 represents output value to Talon at 100%, 20660 represents Velocity units at 100% output
      */
-    public static final double kF = 0.01; //150
-    public static final double kP = 0.025; //0.1
+    public static final double kF = 0.01;
+    public static final double kP = 0.05; //0.025
     public static final double kI = 0;
     public static final double kD = 0;
 
-    public static final double kMaxSpeed = 1.0; // ArmRevPerMin 30
+    public static final double kMaxSpeed = 0.6; // ArmRevPerMin 30 - 1.0
 
 
   }
