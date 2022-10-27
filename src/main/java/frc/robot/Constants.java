@@ -142,7 +142,7 @@ public final class Constants {
   public static final class ShooterConstants {
     public static final double kLowShooterOutput = 0.40; //0.4
     public static final double kHighShooterOutput = 0.70; //0.7
-    public static final int kLowShooterVelocity = 4000; // RPM
+    public static final int kLowShooterVelocity = 5200; // RPM
     public static final int kHighShooterVelocity = 7600; // RPM
     public static final int kShooterPort = 11;
     public static final boolean kShooterMotorInverted = false;

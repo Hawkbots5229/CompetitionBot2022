@@ -88,6 +88,11 @@ public class ClimberSubsystem extends SubsystemBase {
     //System.out.println("TarVel_RevPer100ms: " + targetVelocity_RevPer100ms);
 
     m_climberLeftFrontMotor.set(TalonFXControlMode.Velocity, targetVelocity_RevPer100ms);
+
+    //System.out.println("Left Front: " + m_climberLeftFrontMotor.getSupplyCurrent());
+    //System.out.println("Right Front: " + m_climberRightFrontMotor.getSupplyCurrent());
+    //System.out.println("Left Rear: " + m_climberLeftRearMotor.getSupplyCurrent());
+    //System.out.println("Right Rear: " + m_climberRightRearMotor.getSupplyCurrent());
   }
   
   public double getClimberOutput() {
