@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.ElevatorWheelSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class AutonomousShootBall extends CommandBase {
@@ -16,15 +17,19 @@ public class AutonomousShootBall extends CommandBase {
   private final double shooterSpeed;
   private final ElevatorSubsystem m_ballElevate;
   private final double elevateSpeed;
+  private final ElevatorWheelSubsystem m_wheelElevate;
+  private final double elevateWheelSpeed;
   private final Timer tmr = new Timer();
   
   /** Creates a new ShootBall. */
-  public AutonomousShootBall(ShooterSubsystem m_ballShooter, double shooterSpeed, ElevatorSubsystem m_ballElevate, double elevateSpeed) {
+  public AutonomousShootBall(ShooterSubsystem m_ballShooter, double shooterSpeed, ElevatorSubsystem m_ballElevate, double elevateSpeed, ElevatorWheelSubsystem m_wheelElevate, double elevateWheelSpeed) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_ballShooter = m_ballShooter;
     this.shooterSpeed = shooterSpeed;
     this.m_ballElevate = m_ballElevate;
     this.elevateSpeed = elevateSpeed;
+    this.m_wheelElevate = m_wheelElevate;
+    this.elevateWheelSpeed = elevateWheelSpeed;
     addRequirements(m_ballElevate);
     addRequirements(m_ballShooter);
   }
@@ -52,6 +57,7 @@ public class AutonomousShootBall extends CommandBase {
   public void end(boolean interrupted) {
     m_ballShooter.setTargetOutput(0);
     m_ballElevate.setTargetOutput(0);
+    m_wheelElevate.setTargetOutput(0);
     tmr.stop();
   }
 

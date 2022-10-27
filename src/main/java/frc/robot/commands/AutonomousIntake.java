@@ -4,9 +4,8 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Timer;
+//import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.AutoConstants;
 import frc.robot.subsystems.ElevatorWheelSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
@@ -15,7 +14,7 @@ public class AutonomousIntake extends CommandBase {
   private final ElevatorWheelSubsystem m_wheelIntake;
   private final double intakeSpeed;
   private final double elevateWheelSpeed;
-  private final Timer tmr = new Timer();
+  //private final Timer tmr = new Timer();
   /** Creates a new AutonomousIntake. */
   public AutonomousIntake(IntakeSubsystem m_ballIntake, double intakeSpeed, ElevatorWheelSubsystem m_wheelIntake, double elevateWheelSpeed) {
     // Use addRequirements() here to declare subsystem dependencies.

@@ -41,7 +41,7 @@ public class Autonomous4Ball extends SequentialCommandGroup {
       // turns 10 degrees to aim at target
       new AutonomousRotate(m_robotDrive, 0.2, 10),
       // powers wheel for 1 second and then shoots balls 1 and 2 at high target for 2 seconds
-      new AutonomousShootBall(m_robotShoot, ShooterConstants.kHighShooterVelocity, m_robotElevate, ElevatorConstants.kElevatorOutput + 0.1), 
+      new AutonomousShootBall(m_robotShoot, ShooterConstants.kHighShooterVelocity, m_robotElevate, ElevatorConstants.kElevatorOutput + 0.1, m_robotWheelElevate, ElevatorConstants.kElevatorMotor3Output), 
       // turns off intake and elevator wheel
       new AutonomousIntake(m_robotIntake, 0, m_robotWheelElevate, 0),
       // turns to line up with the 3rd ball
@@ -63,7 +63,7 @@ public class Autonomous4Ball extends SequentialCommandGroup {
       // aims at high target
       new AutonomousRotate(m_robotDrive, 0.2, 20),
       // powers wheel for 1 second and then shoots ball 3 and 4 at high target for 2 seconds
-      new AutonomousShootBall(m_robotShoot, ShooterConstants.kHighShooterVelocity, m_robotElevate, ElevatorConstants.kElevatorOutput + 0.1),
+      new AutonomousShootBall(m_robotShoot, ShooterConstants.kHighShooterVelocity, m_robotElevate, ElevatorConstants.kElevatorOutput + 0.1, m_robotWheelElevate, ElevatorConstants.kElevatorMotor3Output),
       // turns off intake and elevator wheel
       new AutonomousIntake(m_robotIntake, 0, m_robotWheelElevate, 0),
       // intaks intake height

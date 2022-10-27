@@ -160,9 +160,9 @@ public final class Constants {
   public static final class IntakeConstants {
     public static final int kIntakePort = 12;
     public static final int kIntake2Port = 15;
-    public static final double kIntakeOutput = 0.75;
+    public static final double kIntakeOutput = 0.70;
     public static final double kAdjustIntakeOutput = 0.5;
-    public static final double kIntakeHeight = 500;
+    public static final double kIntakeHeight = 470;
     public static final boolean kIntakeMotorInverted = false;
     public static final boolean kIntakeHeightMotorInverted = false; 
     public static final NeutralMode kIntakeHeightMotorNeutralMode = NeutralMode.Brake;

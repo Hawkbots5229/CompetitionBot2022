@@ -6,11 +6,10 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.ElevatorConstants;
-import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ElevatorWheelSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -19,14 +18,14 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class AutonomousDefault extends SequentialCommandGroup {
 
   /** Creates a new AutonomousDefault. */
-  public AutonomousDefault(DriveSubsystem m_robotDrive, ShooterSubsystem m_robotShoot, ElevatorSubsystem m_robotElevate) {
+  public AutonomousDefault(DriveSubsystem m_robotDrive, ShooterSubsystem m_robotShoot, ElevatorSubsystem m_robotElevate, ElevatorWheelSubsystem m_robotWheelElevate) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new AutonomousShootBall(m_robotShoot, ShooterConstants.kLowShooterVelocity, m_robotElevate, ElevatorConstants.kElevatorOutput + 0.15),
+      new AutonomousShootBall(m_robotShoot, ShooterConstants.kLowShooterVelocity, m_robotElevate, ElevatorConstants.kElevatorOutput + 0.15, m_robotWheelElevate, ElevatorConstants.kElevatorMotor3Output),
       //new AutonomousIntake(m_ballIntake, IntakeConstants.kIntakeOutput),
       //new AutonomousShootBall(m_robotShoot, ShooterConstants.kHighShooterOutput, m_robotElevate, ElevatorConstants.kElevatorOutput),
-      new AutonomousDistance(m_robotDrive, -0.2, 0, 2));
+      new AutonomousDistance(m_robotDrive, 0.2, 0, 2));
       
   }
 }

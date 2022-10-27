@@ -50,6 +50,6 @@ public class AutonomousRotate extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(m_robotDrive.getAngle()) >= m_degrees;
+    return Math.abs(m_robotDrive.getAngle()) >= Math.abs(m_degrees);
   }
 }
