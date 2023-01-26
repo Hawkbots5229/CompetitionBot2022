@@ -88,8 +88,8 @@ public class RobotContainer {
         new RunCommand(
             () ->
                 m_robotClimber.setTargetVelocity(
-                    m_mechController.getLeftTriggerAxis(),
-                    -m_mechController.getRightTriggerAxis()),
+                    m_driverController.getLeftTriggerAxis(),
+                    -m_driverController.getRightTriggerAxis()),
             m_robotClimber));
   }
 

@@ -140,10 +140,10 @@ public final class Constants {
   }
 
   public static final class ShooterConstants {
-    public static final double kLowShooterOutput = 0.40; //0.4
-    public static final double kHighShooterOutput = 0.70; //0.7
-    public static final int kLowShooterVelocity = 5200; // RPM
-    public static final int kHighShooterVelocity = 7600; // RPM
+    public static final double kLowShooterOutput = 0.60; //0.4
+    public static final double kHighShooterOutput = 0.90; //0.7
+    public static final int kLowShooterVelocity = 3600; // RPM 5200
+    public static final int kHighShooterVelocity = 4800; // RPM 9000
     public static final int kShooterPort = 11;
     public static final boolean kShooterMotorInverted = false;
     public static final double kClosedLoopRampRate = 0.5; // Time in seconds to go from 0 to full throttle.

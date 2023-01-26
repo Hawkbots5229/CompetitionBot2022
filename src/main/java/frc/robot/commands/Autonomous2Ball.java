@@ -40,6 +40,6 @@ public class Autonomous2Ball extends SequentialCommandGroup {
       // turns -5 degrees to aim at target
       new AutonomousRotate(m_robotDrive, 0.2, 5),
       // powers wheel until at target speed and then shoots balls 1 and 2 at high target for 2 seconds
-      new AutonomousShootBall(m_robotShoot, ShooterConstants.kHighShooterVelocity - 2300, m_robotElevate, ElevatorConstants.kElevatorOutput + 0.1, m_robotWheelElevate, ElevatorConstants.kElevatorMotor3Output));
+      new AutonomousShootBall(m_robotShoot, ShooterConstants.kHighShooterVelocity - 2800, m_robotElevate, ElevatorConstants.kElevatorOutput + 0.1, m_robotWheelElevate, ElevatorConstants.kElevatorMotor3Output));
   }
 }
